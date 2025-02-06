@@ -12,6 +12,7 @@ function App() {
            async function getData(){
                const textArea = document.getElementById("textArea");
                let capturedString;
+
                try{
                    capturedString = await fetch("http://localhost:8080/api/HelloWorld")
                    .then(response => response.text())
