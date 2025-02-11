@@ -6,11 +6,13 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="users")
 public class User {
 
+    // Generic Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +24,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
+    // Unique Attributes
     @NotBlank(message = "First name is required")
     private String firstName;
 
@@ -37,8 +40,24 @@ public class User {
     @Transient
     private String confirmPassword;
 
+    // Relationship Attributes
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> userRoles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignedTo")
+    private List<Task> assignedTasks;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatorId")
+    private List<ShiftNote> createdShiftNotes;
+
+    // Empty Constructor (BEAN)
     public User() {}
 
+    // Set date on creation and update
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
@@ -50,6 +69,7 @@ public class User {
         this.updatedAt = new Date();
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -112,5 +132,29 @@ public class User {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public List<Role> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<Role> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public List<Task> getAssignedTasks() {
+        return assignedTasks;
+    }
+
+    public void setAssignedTasks(List<Task> assignedTasks) {
+        this.assignedTasks = assignedTasks;
+    }
+
+    public List<ShiftNote> getCreatedShiftNotes() {
+        return createdShiftNotes;
+    }
+
+    public void setCreatedShiftNotes(List<ShiftNote> createdShiftNotes) {
+        this.createdShiftNotes = createdShiftNotes;
     }
 }
