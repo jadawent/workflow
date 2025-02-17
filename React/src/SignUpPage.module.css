@@ -1,0 +1,73 @@
+.header{
+    background-color: #252a36;
+    color: white;
+    display: grid;
+    place-content: center;
+    min-height: 50px;
+    min-width: 290px;
+    padding: 5px;
+}
+
+.title{
+    text-decoration: none;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.main{
+    margin: 5%;
+    display: grid;
+    place-content: center;
+    min-width: 250px;
+}
+
+.signUpDiv{
+    display: grid;
+    place-content: center;
+    border: 1px solid;
+    width: 250px;
+    min-width: 250px;
+}
+
+.username{
+    margin: 1em 0 0 0;
+}
+
+.signUpDiv input{
+    color: black;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 5px;
+    height: 2em;
+    width: 15em;
+}
+
+.caption{
+    text-align: center;
+    padding: 0;
+    margin: 1em 0 0 0;
+}
+
+.btn{
+    height: 2em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin: 2em 0 2em 0;
+}
+
+.btn:hover {
+    border-color: #646cff;
+}
+
+.btn:active{
+    background-color: #575252
+}
