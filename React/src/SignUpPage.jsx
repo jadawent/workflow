@@ -14,7 +14,8 @@ function SignUpPage(){
                     <input id="username"></input>
                     <p>Password</p>
                     <input type="password" id="password"></input>
-                    <button className={styles.btn} onClick={doSomething}>Sign Up</button>
+                    <button className={styles.btn} onClick={createUser}>Sign Up</button>
+                    <p className={styles.caption} id="result"></p>
                 </div>
             </main>
         </>
@@ -22,11 +23,12 @@ function SignUpPage(){
 }
 
 
-async function doSomething(){
+async function createUser(){
     const user = document.getElementById("username");
     const pw = document.getElementById("password");
+    const displayResult = document.getElementById("result");
     const url = "http://localhost:8080/api/create-user"; 
-        // can change to https for secure transfer, but we will need to implement TLS/SSL in springboot too.
+    // can change to https for secure transfer, but we will need to implement TLS/SSL in springboot too.
     const data = {
         username: user.value,
         password: pw.value,
@@ -41,8 +43,17 @@ async function doSomething(){
             },
             body: JSON.stringify(data)
         });
+        const result = await response.text();
+        
+        if (!response.ok){
+            console.log(result);
+            displayResult.innerText = "Sign up failed.";
+            throw new Error(result);
+        }
+        console.log("User created:", result);
+        displayResult.innerText = "Sign up success!";
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 

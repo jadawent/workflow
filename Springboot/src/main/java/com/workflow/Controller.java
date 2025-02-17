@@ -2,6 +2,7 @@ package com.workflow;
 
 import com.workflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,8 +13,14 @@ public class Controller {
     private UserService userService;
 
     @PostMapping("/create-user")
-    private User createUser(@RequestBody User user){
-        return userService.createUser(user);
+    private ResponseEntity<?> createUser(@RequestBody User user){
+        try{
+            User createdUser = userService.createUser(user);
+            return ResponseEntity.ok(createdUser);
+        } catch (Exception e){
+            System.out.println(e);
+            return ResponseEntity.badRequest().body("Could not create user.");
+        }
     }
 
 }
