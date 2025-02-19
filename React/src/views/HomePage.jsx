@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import styles from "./HomePage.module.css"
+import styles from "../HomePage.module.css"
 
 function HomePage(){
     return (
@@ -14,7 +14,7 @@ function HomePage(){
             <h1>WORKFLOW</h1>
             <div className={styles.titleCard}>
                 <div className={styles.description}>
-                    <p>Does your team need help getting stuff done?<br />WorkFlow has you covered.</p>
+                    <p>Streamline the Management Process</p>
                 </div>
             </div>
         </main>

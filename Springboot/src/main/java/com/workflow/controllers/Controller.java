@@ -1,5 +1,6 @@
-package com.workflow;
+package com.workflow.controllers;
 
+import com.workflow.services.UserService;
 import com.workflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,4 @@ public class Controller {
             return ResponseEntity.badRequest().body("Could not create user.");
         }
     }
-
 }

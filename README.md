@@ -6,7 +6,7 @@
 
 # 2. Once you have NPM, via your terminal/command-line, navigate to the workflow_REACT folder.
 
-# 3. In the workflow_REACT directory, run these commands to install the neccessary dependencies:
+# 3. In the workflow_REACT directory, run these commands to install the necessary dependencies:
 #   "npm install"
 #   "npm install react-router-dom"
 

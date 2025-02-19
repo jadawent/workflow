@@ -1,4 +1,4 @@
-package com.workflow;
+package com.workflow.services;
 
 import com.workflow.models.User;
 import com.workflow.repositories.UserRepository;
