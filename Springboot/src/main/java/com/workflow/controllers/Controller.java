@@ -1,14 +1,21 @@
 package com.workflow.controllers;
 
-import com.workflow.models.Role;
-import com.workflow.services.RoleService;
-import com.workflow.services.UserService;
-import com.workflow.models.User;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.workflow.models.Role;
+import com.workflow.models.User;
+import com.workflow.services.RoleService;
+import com.workflow.services.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +26,13 @@ public class Controller {
 
     @Autowired
     private RoleService roleService;
+
+    @GetMapping("/up")
+    public ResponseEntity<?> up(){
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "Up and running");
+        return ResponseEntity.ok(response);   
+    }
 
     @PostMapping("/create-user")
     private ResponseEntity<?> createUser(@RequestBody User user){
