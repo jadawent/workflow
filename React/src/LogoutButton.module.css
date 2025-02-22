@@ -1,0 +1,22 @@
+.btn{
+    height: 2em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin: 2em 0 2em 0;
+}
+
+.btn:hover {
+    border-color: #646cff;
+}
+
+.btn:active{
+    background-color: #575252
+}

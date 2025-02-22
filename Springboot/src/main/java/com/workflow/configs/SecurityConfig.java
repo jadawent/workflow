@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/login").permitAll()
                         .anyRequest().authenticated()
                 )
+                .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))
                 .httpBasic(Customizer.withDefaults())
                 .build();
 
