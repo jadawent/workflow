@@ -40,7 +40,7 @@ public class UserService {
         if(!user.getUsername().equals(username))
             throw new UsernameNotFoundException("User does not exist.");
 
-        if(!bCryptPasswordEncoder.matches(password, user.getPassword()))
+        if(!passwordEncoder.matches(password, user.getPassword()))
             throw new BadCredentialsException("The password is incorrect.");
 
         return true;
