@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/task/list").permitAll()
                         .requestMatchers("/api/task").permitAll()
                         .requestMatchers("/api/task/{id}").permitAll()
+                        .requestMatchers("/api/up").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))

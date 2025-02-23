@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import { navigate } from "react-router-dom"
 import styles from "../HomePage.module.css"
+import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import { useAuth } from '../components/AuthContext.jsx'
@@ -8,6 +8,7 @@ import { useAuth } from '../components/AuthContext.jsx'
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
     const {logout} = useAuth();
+    const {navigate} = useNavigate();
     useEffect(() => {
         async function getTasks(){
             const response = await fetch("http://localhost:8080/api/task/list" , {
