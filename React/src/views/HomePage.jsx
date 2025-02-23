@@ -7,7 +7,7 @@ function HomePage(){
         <header>
             <nav className={styles.navBar}>
                 <Link to="/signup" className={`${styles.btn} ${styles.signUp}`}>Sign Up</Link>
-                <Link to="/" className={`${styles.btn} ${styles.login}`}>Login</Link>
+                <Link to="/login" className={`${styles.btn} ${styles.login}`}>Login</Link>
             </nav>
         </header>
         <main className={styles.main}>
