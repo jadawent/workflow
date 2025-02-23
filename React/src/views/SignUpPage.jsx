@@ -84,12 +84,10 @@ async function createUser(firstName, lastName, user, pw, confirmPw, displayResul
         const result = await response.text();
         
         if(response.ok){
-            console.log(result);
             alert("Sign up success!");
             navigate("/")
         }
         else {
-            console.log(result);
             alert(result);
         }
     } catch (error) {

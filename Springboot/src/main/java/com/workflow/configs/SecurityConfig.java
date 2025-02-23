@@ -1,5 +1,7 @@
 package com.workflow.configs;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 @EnableWebSecurity
 @Configuration
@@ -41,6 +41,10 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/task/list").permitAll()
+                        .requestMatchers("/api/task").permitAll()
+                        .requestMatchers("/api/task/{id}").permitAll()
+                        .requestMatchers("/api/up").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))

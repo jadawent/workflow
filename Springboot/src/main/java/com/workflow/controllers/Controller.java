@@ -1,17 +1,28 @@
 package com.workflow.controllers;
 
-import com.workflow.models.LoginUser;
-import com.workflow.models.Role;
-import com.workflow.services.RoleService;
-import com.workflow.services.UserService;
-import com.workflow.models.User;
-import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.workflow.models.LoginUser;
+import com.workflow.models.Role;
+import com.workflow.models.User;
+import com.workflow.services.RoleService;
+import com.workflow.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
@@ -26,6 +37,13 @@ public class Controller {
     @PutMapping("/user/{id}")
     public User updateUser(@RequestBody() User user, @PathVariable("id") Long id){
         return userService.updateUser(user);
+    }
+
+    @GetMapping("/up")
+    public ResponseEntity<?> up(){
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "Up and running");
+        return ResponseEntity.ok(response);   
     }
 
     @PostMapping("/create-user")

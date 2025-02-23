@@ -7,6 +7,7 @@ import Login from "./components/LoginForm"
 import LoginSuccess from "./components/LoginSuccess"
 import { AuthProvider } from './components/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import Dashboard from './views/Dashboard'
 
 
 function App() {
@@ -16,10 +17,11 @@ function App() {
           <Router>
               <Routes>
                   <Route path="/login" element={<Login />} />
-                  <Route path="/" element={ <ProtectedRoute> <HomePage /> </ProtectedRoute>} />
-                  <Route path="/signup" element={ <ProtectedRoute> <SignUpPage /> </ProtectedRoute>} />
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/signup" element={<SignUpPage />} />
                   <Route path="/loginSuccess" element={<ProtectedRoute> <LoginSuccess /> </ProtectedRoute>} />
                   <Route path="*" element={<ErrorPage />} />
+                  <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
               </Routes>
           </Router>
       </AuthProvider>

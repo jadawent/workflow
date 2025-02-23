@@ -1,16 +1,33 @@
 package com.workflow.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import java.util.Date;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tasks")
 public class Task {
+
+    // Enum for Task Status
+    public enum Status {
+        TO_DO,
+        IN_PROGRESS,
+        COMPLETE
+    }
 
     // Generic Attributes
     @Id
@@ -31,6 +48,9 @@ public class Task {
     @NotNull
     private String taskBody;
 
+    @NotNull
+    private Status status;
+
     // Relationship Attributes
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_id")
@@ -44,6 +64,7 @@ public class Task {
     protected void onCreate() {
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.status = Status.TO_DO;
     }
 
     @PreUpdate
@@ -98,5 +119,27 @@ public class Task {
 
     public void setAssignedTo(User assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Status status) {
+        if (isValidStatus(status)) {
+            this.status = status;
+        }
+        else {
+            throw new IllegalArgumentException("Invalid status");
+        }
+    }
+
+    private boolean isValidStatus(Status status) {
+        for (Status s : Status.values()) {
+            if (s.equals(status)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
