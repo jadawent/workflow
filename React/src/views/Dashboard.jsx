@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import { useAuth } from '../components/AuthContext.jsx'
+import ReactModal from "react-modal";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -24,6 +25,8 @@ function Dashboard(){
         getTasks();
     }, [])
 
+
+
     const handleLogout = async () => {
         logout();
         navigate('/')
@@ -43,7 +46,9 @@ function Dashboard(){
         createNewTask();
         closePopup();
     }
-
+    useEffect(() => {
+        console.log(showPopup)
+    }, [showPopup])
     return (
         <>
             <header>
@@ -80,18 +85,20 @@ function Dashboard(){
                     </table>
                 </TabPanel>
                 {showPopup && (
-                    <div align={"center"} className={styles.popupOverlay}>
-                        <div className={styles.popupContent}>
+                    <ReactModal isOpen={showPopup}>
+                        <div className={styles.popupContent}> 
                             <h2> Create New Task </h2>
                             <p className ={styles.taskName}>Task Name</p>
-                            <input id="taskName"></input>
+                            <input id="taskName" className={styles.largeInput}></input>
                             <p>Task Description</p>
-                            <input id="taskBody"></input>
-                            <button className={styles.btn} onClick={closePopup}>Cancel</button>
-                            <button className={styles.btn} onClick={handleSubmit}>Submit</button>
-
+                            <input id="taskBody" className={styles.largeInput}></input>
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.btn} onClick={closePopup}>Cancel</button>
+                                <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+                            </div>
                         </div>
-                    </div>
+                        
+                    </ReactModal>
                 )}
             </Tabs>
         </>

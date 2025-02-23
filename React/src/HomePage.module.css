@@ -85,3 +85,28 @@
     place-content: center;
 }
 
+.popupContent {
+    background-color: #f0f8ff;
+    border: 1px solid;
+    padding: 2em;
+    display: center;
+    place-content: center;
+    margin: 5em;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttonContainer .btn {
+    margin-left: 10px;
+}
+
+.largeInput {
+    width: 98%;
+    padding: 10px;
+    height: 2em;
+    margin: 0 0 1em 0;
+}
+
