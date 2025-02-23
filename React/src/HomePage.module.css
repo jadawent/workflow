@@ -39,6 +39,7 @@
     text-decoration: none;
     display: grid;
     place-content: center;
+    padding: 2px;
 }
 
 .btn:hover {
@@ -48,3 +49,39 @@
 .btn:active{
     background-color: #575252
 }
+
+.createNewTaskBtn{
+    height: 2.5em;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    float: right;
+    place-content: center;
+    margin: 0 0 0 0;
+    width: 150px;
+    min-width: 10%;
+}
+
+.createNewTaskBtn:hover {
+    border-color: #646cff;
+}
+
+.createNewTaskBtn:active{
+    background-color: #575252
+}
+
+.popupOverlay{
+    background-color: #708090;
+    place-content: center;
+    border: 1px solid;
+    min-width: 200px;
+    max-width: 500px;
+    padding: 2em;
+    display: grid;
+    place-content: center;
+}
+

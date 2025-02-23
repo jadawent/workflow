@@ -90,8 +90,8 @@ async function createUser(firstName, lastName, user, pw, confirmPw, displayResul
         else {
             alert(result);
         }
-    } catch (error) {
-        console.error(error);
+        }catch (error) {
+            console.error(error);
     }
 }
 

@@ -29,6 +29,21 @@ function Dashboard(){
         navigate('/')
     }
 
+    const [showPopup, setShowPopup] = useState(false);
+
+    const setShowPopupTrue = () => {
+        setShowPopup(true)
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
+    };
+
+    const handleSubmit = async () => {
+        createNewTask();
+        closePopup();
+    }
+
     return (
         <>
             <header>
@@ -41,6 +56,7 @@ function Dashboard(){
                     <Tab>Tasks</Tab>
                 </TabList>
                 <TabPanel>
+                    <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
                     <table width={"100%"}>
                         <thead>
                             <tr align={"left"}>
@@ -63,9 +79,55 @@ function Dashboard(){
                         </tbody>
                     </table>
                 </TabPanel>
+                {showPopup && (
+                    <div align={"center"} className={styles.popupOverlay}>
+                        <div className={styles.popupContent}>
+                            <h2> Create New Task </h2>
+                            <p className ={styles.taskName}>Task Name</p>
+                            <input id="taskName"></input>
+                            <p>Task Description</p>
+                            <input id="taskBody"></input>
+                            <button className={styles.btn} onClick={closePopup}>Cancel</button>
+                            <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+
+                        </div>
+                    </div>
+                )}
             </Tabs>
         </>
     );
+}
+
+async function createNewTask(){
+    const url ="http://localhost:8080/api/task";
+    const taskName = document.getElementById("taskName");
+    const desc = document.getElementById("taskBody")
+
+    const data = {
+        taskName: taskName.value,
+        taskBody: desc.value
+    }
+    try{
+        const response = await fetch(url , {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.text();
+
+    if(response.ok){
+        alert("New Task Created!");
+        navigate("Dashboard")
+    }
+    else{
+        alert(result);
+        }
+    }catch (error){
+    console.error(error)
+    }
+    window.location.reload();
 }
 
 export default Dashboard;
