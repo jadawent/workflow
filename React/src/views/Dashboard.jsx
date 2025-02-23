@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom"
+import { navigate } from "react-router-dom"
 import styles from "../HomePage.module.css"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
+import { useAuth } from '../components/AuthContext.jsx'
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
+    const {logout} = useAuth();
     useEffect(() => {
         async function getTasks(){
             const response = await fetch("http://localhost:8080/api/task/list" , {
@@ -16,18 +18,22 @@ function Dashboard(){
             });
             const result = await response.text();
             const json = JSON.parse(result);
-            console.log(json);
             setTaskList(json)
         }
         getTasks();
     }, [])
 
-
+    const handleLogout = async () => {
+        logout();
+        navigate('/')
+    }
 
     return (
         <>
             <header>
-                <nav className={styles.navBar}></nav>
+                <nav className={styles.navBar}>
+                    <button className={styles.btn} onClick={handleLogout}>Logout</button>
+                </nav>
             </header>
             <Tabs>
                 <TabList>

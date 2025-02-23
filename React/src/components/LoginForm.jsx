@@ -25,7 +25,7 @@ export default function Login() {
             const response = await axios.post('http://localhost:8080/api/login', loginData);
             if (response.status === 200) {
                 login();
-                navigate('/loginSuccess')
+                navigate('/dashboard')
             } else {
                 const errorData = await response.json()
                 setError(errorData.message || 'Login failed for user. Please retry!')
