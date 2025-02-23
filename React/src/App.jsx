@@ -3,21 +3,28 @@ import styles from "./App.module.css"    // Empty for now
 import HomePage from "./views/HomePage"
 import SignUpPage from "./views/SignUpPage"
 import ErrorPage from "./views/ErrorPage"
-import Dashboard from "./views/Dashboard"
+import Login from "./components/LoginForm"
+import LoginSuccess from "./components/LoginSuccess"
+import { AuthProvider } from './components/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
 
 
 function App() {
   return(
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="*" element={<ErrorPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </Router>
+      <div className="App">
+      <AuthProvider>
+          <Router>
+              <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/" element={ <ProtectedRoute> <HomePage /> </ProtectedRoute>} />
+                  <Route path="/signup" element={ <ProtectedRoute> <SignUpPage /> </ProtectedRoute>} />
+                  <Route path="/loginSuccess" element={<ProtectedRoute> <LoginSuccess /> </ProtectedRoute>} />
+                  <Route path="*" element={<ErrorPage />} />
+              </Routes>
+          </Router>
+      </AuthProvider>
+      </div>
   )
 }
-
 
 export default App
