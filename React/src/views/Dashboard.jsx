@@ -3,13 +3,11 @@ import styles from "../HomePage.module.css"
 import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
-import { useAuth } from '../components/AuthContext.jsx'
 import ReactModal from "react-modal";
+import { Logout } from '../components/LogoutButton.jsx'
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
-    const {logout} = useAuth();
-    const {navigate} = useNavigate();
     useEffect(() => {
         async function getTasks(){
             const response = await fetch("http://localhost:8080/api/task/list" , {
@@ -25,13 +23,6 @@ function Dashboard(){
         getTasks();
     }, [])
 
-
-
-    const handleLogout = async () => {
-        logout();
-        navigate('/')
-    }
-
     const [showPopup, setShowPopup] = useState(false);
 
     const setShowPopupTrue = () => {
@@ -46,14 +37,12 @@ function Dashboard(){
         createNewTask();
         closePopup();
     }
-    useEffect(() => {
-        console.log(showPopup)
-    }, [showPopup])
+
     return (
         <>
             <header>
                 <nav className={styles.navBar}>
-                    <button className={styles.btn} onClick={handleLogout}>Logout</button>
+                    <Logout/>
                 </nav>
             </header>
             <Tabs>
