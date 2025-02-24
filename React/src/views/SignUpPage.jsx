@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
 import styles from "../SignUpPage.module.css"
+import { useAuth } from '../components/AuthContext.jsx'
 
 function SignUpPage(){
+    const {login} = useAuth();
     const navigate = useNavigate();
     return (
         <>
@@ -21,7 +23,7 @@ function SignUpPage(){
                     <input type="password" id="password"></input>
                     <p>Confirm Password*</p>
                     <input type="password" id="confirmPassword"></input>
-                    <button className={styles.btn} onClick={() => signUp(navigate)}>Sign Up</button>
+                    <button className={styles.btn} onClick={() => signUp(navigate, login)}>Sign Up</button>
                 </div>
             </main>
         </>
@@ -36,7 +38,7 @@ function doPasswordsMatch(pw, confirmPw){
 }
 
 
-function signUp(navigate){
+function signUp(navigate, login){
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
     const user = document.getElementById("username").value;
@@ -45,7 +47,7 @@ function signUp(navigate){
     const displayResult = document.getElementById("result");
     if(allValuesFilled(firstName, lastName, user, pw, confirmPw)){
         if (doPasswordsMatch(pw, confirmPw) == true){
-            createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate);
+            createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login);
          } else {
              alert("Passwords do not match. Try again.");
          }
@@ -63,7 +65,7 @@ function allValuesFilled(firstName, lastName, user, pw, confirmPassword){
     return true;
 }
 
-async function createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate){
+async function createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login){
     const url = "http://localhost:8080/api/create-user"; 
     // can change to https for secure transfer, but we will need to implement TLS/SSL in springboot too.
     const data = {
@@ -85,7 +87,8 @@ async function createUser(firstName, lastName, user, pw, confirmPw, displayResul
         
         if(response.ok){
             alert("Sign up success!");
-            navigate("/")
+            login();
+            navigate('/dashboard')
         }
         else {
             alert(result);
