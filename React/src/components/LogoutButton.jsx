@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from "../LogoutButton.module.css"
 import { useAuth } from './AuthContext.jsx'
 
-export default function Logout() {
+function Logout() {
 
     const {logout} = useAuth();
 
@@ -19,3 +19,5 @@ export default function Logout() {
         </div>
     );
 }
+
+export default Logout;

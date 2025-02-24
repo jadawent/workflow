@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import ReactModal from "react-modal";
-import { Logout } from '../components/LogoutButton.jsx'
+import LogoutButton from '../components/LogoutButton'
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -42,7 +42,7 @@ function Dashboard(){
         <>
             <header>
                 <nav className={styles.navBar}>
-                    <Logout/>
+                    <LogoutButton/>
                 </nav>
             </header>
             <Tabs>
