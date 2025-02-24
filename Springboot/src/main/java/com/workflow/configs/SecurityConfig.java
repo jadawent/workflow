@@ -40,12 +40,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login").permitAll()
-                        .requestMatchers("/api/task/list").permitAll()
-                        .requestMatchers("/api/task").permitAll()
-                        .requestMatchers("/api/task/{id}").permitAll()
-                        .requestMatchers("/api/up").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))
                 .httpBasic(Customizer.withDefaults())

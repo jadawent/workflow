@@ -3,12 +3,11 @@ import styles from "../HomePage.module.css"
 import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
-import { useAuth } from '../components/AuthContext.jsx'
+import ReactModal from "react-modal";
+import LogoutButton from '../components/LogoutButton'
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
-    const {logout} = useAuth();
-    const {navigate} = useNavigate();
     useEffect(() => {
         async function getTasks(){
             const response = await fetch("http://localhost:8080/api/task/list" , {
@@ -24,16 +23,26 @@ function Dashboard(){
         getTasks();
     }, [])
 
-    const handleLogout = async () => {
-        logout();
-        navigate('/')
+    const [showPopup, setShowPopup] = useState(false);
+
+    const setShowPopupTrue = () => {
+        setShowPopup(true)
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
+    };
+
+    const handleSubmit = async () => {
+        createNewTask();
+        closePopup();
     }
 
     return (
         <>
             <header>
                 <nav className={styles.navBar}>
-                    <button className={styles.btn} onClick={handleLogout}>Logout</button>
+                    <LogoutButton/>
                 </nav>
             </header>
             <Tabs>
@@ -41,6 +50,7 @@ function Dashboard(){
                     <Tab>Tasks</Tab>
                 </TabList>
                 <TabPanel>
+                    <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
                     <table width={"100%"}>
                         <thead>
                             <tr align={"left"}>
@@ -63,9 +73,57 @@ function Dashboard(){
                         </tbody>
                     </table>
                 </TabPanel>
+                {showPopup && (
+                    <ReactModal isOpen={showPopup}>
+                        <div className={styles.popupContent}> 
+                            <h2> Create New Task </h2>
+                            <p className ={styles.taskName}>Task Name</p>
+                            <input id="taskName" className={styles.largeInput}></input>
+                            <p>Task Description</p>
+                            <input id="taskBody" className={styles.largeInput}></input>
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.btn} onClick={closePopup}>Cancel</button>
+                                <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+                            </div>
+                        </div>
+                        
+                    </ReactModal>
+                )}
             </Tabs>
         </>
     );
+}
+
+async function createNewTask(){
+    const url ="http://localhost:8080/api/task";
+    const taskName = document.getElementById("taskName");
+    const desc = document.getElementById("taskBody")
+
+    const data = {
+        taskName: taskName.value,
+        taskBody: desc.value
+    }
+    try{
+        const response = await fetch(url , {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.text();
+
+    if(response.ok){
+        alert("New Task Created!");
+        navigate("Dashboard")
+    }
+    else{
+        alert(result);
+        }
+    }catch (error){
+    console.error(error)
+    }
+    window.location.reload();
 }
 
 export default Dashboard;
