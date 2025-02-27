@@ -14,7 +14,7 @@ function SignUpPage(){
                 <div className={styles.signUpDiv}>
                     <p className={styles.caption}>For management only!</p>
                     <p>First Name*</p>
-                    <input required id="firstName"></input>
+                    <input id="firstName"></input>
                     <p>Last Name*</p>
                     <input id="lastName"></input>
                     <p>Username*</p>
@@ -45,6 +45,7 @@ function signUp(navigate, login){
     const pw = document.getElementById("password").value;
     const confirmPw = document.getElementById("confirmPassword").value;
     const displayResult = document.getElementById("result");
+    
     if(allValuesFilled(firstName, lastName, user, pw, confirmPw)){
         if (doPasswordsMatch(pw, confirmPw) == true){
             createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login);
@@ -73,7 +74,10 @@ async function createUser(firstName, lastName, user, pw, confirmPw, displayResul
         password: pw,
         confirmPassword: confirmPw,
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        userRoles: [{
+            roleName: "Manager"
+        }]
     }
     try{
         const response = await fetch(url , {

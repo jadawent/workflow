@@ -30,9 +30,6 @@ public class Controller {
 
     @Autowired
     private UserService userService;
-  
-    @Autowired
-    private RoleService roleService;
 
     @PutMapping("/user/{id}")
     public User updateUser(@RequestBody() User user, @PathVariable("id") Long id){
@@ -49,25 +46,11 @@ public class Controller {
     @PostMapping("/create-user")
     private ResponseEntity<?> createUser(@RequestBody User user){
         try{
-            // Trims trailing spaces and
-            // checks if username already exists
-            user.setUsername(user.getUsername().trim());
-            if (userService.existsByUsername(user.getUsername())) {
-                return ResponseEntity.badRequest().body("Username is already taken.");
-            }
-
-            // checks if the 2 passwords match before creating the user.
-            if(!user.getPassword().equals(user.getConfirmPassword())){
-                return ResponseEntity.badRequest().body("Passwords do not match.");
-            }
-
-            // Creates a manager role if not already existing in database
-            Role role = roleService.saveAsManagerRole();
-
-            userService.createUser(user, List.of(role));
+            userService.createUser(user);
             return ResponseEntity.ok("User created successfully.");
-        } catch (Exception e){
-            System.out.println(e);
+        } catch(IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch(Exception e){
             return ResponseEntity.badRequest().body("Could not create user.");
         }
     }
