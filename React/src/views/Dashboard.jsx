@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import styles from "../HomePage.module.css"
+import signUpStyles from "../SignUpPage.module.css"
 import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import ReactModal from "react-modal";
 import LogoutButton from '../components/LogoutButton'
+import SignUpComponent from "../components/SignUpComponent.jsx";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -38,6 +40,16 @@ function Dashboard(){
         closePopup();
     }
 
+    const [showCreateEmployeesPopup, setShowCreateEmployeesPopup] = useState(false);
+
+    const setShowCreateEmployeesPopupTrue = () => {
+        setShowCreateEmployeesPopup(true);
+    }
+    const closeCreateEmployeePopup = () => {
+        setShowCreateEmployeesPopup(false);
+    }
+
+
     return (
         <>
             <header>
@@ -48,6 +60,7 @@ function Dashboard(){
             <Tabs>
                 <TabList>
                     <Tab>Tasks</Tab>
+                    <Tab>Manage Employees</Tab>
                 </TabList>
                 <TabPanel>
                     <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
@@ -89,6 +102,19 @@ function Dashboard(){
                         
                     </ReactModal>
                 )}
+                <TabPanel>
+                    <button className={styles.createNewTaskBtn} onClick={setShowCreateEmployeesPopupTrue}>Create Employee</button>
+                </TabPanel>
+                {
+                    showCreateEmployeesPopup && (
+                        <ReactModal isOpen={showCreateEmployeesPopup}>
+                            <div className={signUpStyles.signUpDiv}>
+                                <SignUpComponent role={"Employee"} closeModal={closeCreateEmployeePopup}/>
+                                <button className={signUpStyles.btn} onClick={closeCreateEmployeePopup}>Cancel</button>
+                            </div>
+                        </ReactModal>
+                    )
+                }
             </Tabs>
         </>
     );
