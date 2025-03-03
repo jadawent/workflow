@@ -40,6 +40,23 @@ function Dashboard(){
         closePopup();
     }
 
+    ///////////////////////////
+    const [userList, setUserList] = useState([]);
+    useEffect(() => {
+        async function getUserList(){
+            const response = await fetch("http://localhost:8080/api/user/list", {
+                method: "GET", 
+                headers: {
+                     "Content-Type": "application/json"
+                }
+            });
+            const result = await response.text();
+            const json = JSON.parse(result);
+            setUserList(json);
+        }
+        getUserList();
+    }, []);
+
     const [showCreateEmployeesPopup, setShowCreateEmployeesPopup] = useState(false);
 
     const setShowCreateEmployeesPopupTrue = () => {
@@ -104,12 +121,31 @@ function Dashboard(){
                 )}
                 <TabPanel>
                     <button className={styles.createNewTaskBtn} onClick={setShowCreateEmployeesPopupTrue}>Create Employee</button>
+                    <table width={"100%"}>
+                        <thead>
+                            <tr align={"left"}>
+                                <th>Employee</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {userList.length > 0 ? userList.map((user, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{user.firstName} {user.lastName}</td>
+                                        <td>{user.userRoles[0].roleName}</td>
+                                    </tr>
+                                );
+                            }
+                            ) : null}
+                        </tbody>
+                    </table>
                 </TabPanel>
                 {
                     showCreateEmployeesPopup && (
                         <ReactModal isOpen={showCreateEmployeesPopup}>
                             <div className={signUpStyles.signUpDiv}>
-                                <SignUpComponent role={"Employee"} closeModal={closeCreateEmployeePopup}/>
+                                <SignUpComponent role={"Employee"} closeModal={closeCreateEmployeePopup} windowReload={() => {window.location.reload()}}/>
                                 <button className={signUpStyles.btn} onClick={closeCreateEmployeePopup}>Cancel</button>
                             </div>
                         </ReactModal>

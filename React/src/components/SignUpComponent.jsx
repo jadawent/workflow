@@ -2,7 +2,7 @@ import styles from "../SignUpPage.module.css"
 import { useAuth } from '../components/AuthContext.jsx'
 import { useNavigate } from "react-router-dom"
 
-function SignUpComponent({role, closeModal}){
+function SignUpComponent({role, closeModal, windowReload}){
     const {login} = useAuth();
     const navigate = useNavigate();
     function signUp(){
@@ -74,6 +74,9 @@ function SignUpComponent({role, closeModal}){
                 }
                 if(closeModal){
                     closeModal();
+                }
+                if(windowReload){
+                    windowReload();
                 }
             }
             else {

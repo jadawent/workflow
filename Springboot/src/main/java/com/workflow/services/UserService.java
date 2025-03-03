@@ -1,6 +1,7 @@
 package com.workflow.services;
 
 import com.workflow.models.Role;
+import com.workflow.models.Task;
 import com.workflow.models.User;
 import com.workflow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,4 +78,7 @@ public class UserService {
         }
     }
 
+    public Iterable<User> listUsers(){
+        return userRepository.findAll();
+    }
 }

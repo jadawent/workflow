@@ -55,6 +55,15 @@ public class Controller {
         }
     }
 
+    @GetMapping("/user/list")
+    public ResponseEntity<?> listUsers(){
+        try{
+            return ResponseEntity.ok(userService.listUsers());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Could not list users.");
+        }
+    }
+
     @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable("id") Long id){
         userService.deleteUser(id);
