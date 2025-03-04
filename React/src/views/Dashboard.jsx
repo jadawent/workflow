@@ -66,6 +66,18 @@ function Dashboard(){
         setShowCreateEmployeesPopup(false);
     }
 
+    ///////////////////////////
+    const [showEmployeeInfoPopup, setShowEmployeeInfoPopup] = useState(false);
+
+    const setShowEmployeePopupTrue = () => {
+        setShowEmployeeInfoPopup(true);
+    }
+
+    const closeEmployeeInfoPopup = () => {
+        setShowEmployeeInfoPopup(false);
+    }
+
+    const [selectedUser, setSelectedUser] = useState(null);
 
     return (
         <>
@@ -124,16 +136,17 @@ function Dashboard(){
                     <table width={"100%"}>
                         <thead>
                             <tr align={"left"}>
-                                <th>Employee</th>
-                                <th>Role</th>
+                                <th>Employees</th>
                             </tr>
                         </thead>
                         <tbody>
                             {userList.length > 0 ? userList.map((user, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{user.firstName} {user.lastName}</td>
-                                        <td>{user.userRoles[0].roleName}</td>
+                                        <td className={styles.employeeList} onClick={() => {
+                                            setShowEmployeePopupTrue()
+                                            setSelectedUser(user);
+                                        }}> {user.firstName} {user.lastName} </td>
                                     </tr>
                                 );
                             }
@@ -147,6 +160,21 @@ function Dashboard(){
                             <div className={signUpStyles.signUpDiv}>
                                 <SignUpComponent role={"Employee"} closeModal={closeCreateEmployeePopup} windowReload={() => {window.location.reload()}}/>
                                 <button className={signUpStyles.btn} onClick={closeCreateEmployeePopup}>Cancel</button>
+                            </div>
+                        </ReactModal>
+                    )
+                }
+                {
+                    showEmployeeInfoPopup && selectedUser && (
+                        <ReactModal isOpen={showEmployeeInfoPopup}>
+                            <div className={signUpStyles.signUpDiv}>
+                                <h2>Name: {selectedUser.firstName} {selectedUser.lastName}</h2>
+                                <p>Role: {selectedUser.userRoles[0].roleName}</p>
+                                <p>Onboarding Date: {selectedUser.createdAt}</p>
+                                <button className={signUpStyles.btn} onClick={() => {
+                                    closeEmployeeInfoPopup();
+                                    setSelectedUser(null);
+                                }}>Cancel</button>
                             </div>
                         </ReactModal>
                     )
