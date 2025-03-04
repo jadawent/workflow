@@ -6,7 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import ReactModal from "react-modal";
 import LogoutButton from '../components/LogoutButton'
-import SignUpComponent from "../components/SignUpComponent.jsx";
+import EmployeeTabComponent from "../components/EmployeeTabComponent.jsx";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -39,45 +39,6 @@ function Dashboard(){
         createNewTask();
         closePopup();
     }
-
-    ///////////////////////////
-    const [userList, setUserList] = useState([]);
-    useEffect(() => {
-        async function getUserList(){
-            const response = await fetch("http://localhost:8080/api/user/list", {
-                method: "GET", 
-                headers: {
-                     "Content-Type": "application/json"
-                }
-            });
-            const result = await response.text();
-            const json = JSON.parse(result);
-            setUserList(json);
-        }
-        getUserList();
-    }, []);
-
-    const [showCreateEmployeesPopup, setShowCreateEmployeesPopup] = useState(false);
-
-    const setShowCreateEmployeesPopupTrue = () => {
-        setShowCreateEmployeesPopup(true);
-    }
-    const closeCreateEmployeePopup = () => {
-        setShowCreateEmployeesPopup(false);
-    }
-
-    ///////////////////////////
-    const [showEmployeeInfoPopup, setShowEmployeeInfoPopup] = useState(false);
-
-    const setShowEmployeePopupTrue = () => {
-        setShowEmployeeInfoPopup(true);
-    }
-
-    const closeEmployeeInfoPopup = () => {
-        setShowEmployeeInfoPopup(false);
-    }
-
-    const [selectedUser, setSelectedUser] = useState(null);
 
     return (
         <>
@@ -132,53 +93,9 @@ function Dashboard(){
                     </ReactModal>
                 )}
                 <TabPanel>
-                    <button className={styles.createNewTaskBtn} onClick={setShowCreateEmployeesPopupTrue}>Create Employee</button>
-                    <table width={"100%"}>
-                        <thead>
-                            <tr align={"left"}>
-                                <th>Employees</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {userList.length > 0 ? userList.map((user, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td className={styles.employeeList} onClick={() => {
-                                            setShowEmployeePopupTrue()
-                                            setSelectedUser(user);
-                                        }}> {user.firstName} {user.lastName} </td>
-                                    </tr>
-                                );
-                            }
-                            ) : null}
-                        </tbody>
-                    </table>
+                    <EmployeeTabComponent></EmployeeTabComponent>
                 </TabPanel>
-                {
-                    showCreateEmployeesPopup && (
-                        <ReactModal isOpen={showCreateEmployeesPopup}>
-                            <div className={signUpStyles.signUpDiv}>
-                                <SignUpComponent role={"Employee"} closeModal={closeCreateEmployeePopup} windowReload={() => {window.location.reload()}}/>
-                                <button className={signUpStyles.btn} onClick={closeCreateEmployeePopup}>Cancel</button>
-                            </div>
-                        </ReactModal>
-                    )
-                }
-                {
-                    showEmployeeInfoPopup && selectedUser && (
-                        <ReactModal isOpen={showEmployeeInfoPopup}>
-                            <div className={signUpStyles.signUpDiv}>
-                                <h2>Name: {selectedUser.firstName} {selectedUser.lastName}</h2>
-                                <p>Role: {selectedUser.userRoles[0].roleName}</p>
-                                <p>Onboarding Date: {selectedUser.createdAt}</p>
-                                <button className={signUpStyles.btn} onClick={() => {
-                                    closeEmployeeInfoPopup();
-                                    setSelectedUser(null);
-                                }}>Cancel</button>
-                            </div>
-                        </ReactModal>
-                    )
-                }
+            
             </Tabs>
         </>
     );
