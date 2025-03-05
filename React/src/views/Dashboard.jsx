@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import styles from "../HomePage.module.css"
+import styles from "../Dashboard.module.css"
 import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
@@ -51,27 +51,58 @@ function Dashboard(){
                 </TabList>
                 <TabPanel>
                     <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
-                    <table width={"100%"}>
-                        <thead>
-                            <tr align={"left"}>
-                                <th>Task Name</th>
-                                <th>Task Description</th>
-                                <th>Task Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {taskList.length > 0 ? taskList.map((task, index) => {
+                    <div className={styles.swimlaneContainer}>
+                        <div className={styles.swimlane}>
+                            <h3> TO DO </h3>
+                            <p>
+                            {taskList.length > 0 ? taskList.filter((task) => task.status == "TO_DO").map((task, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{task.taskName}</td>
-                                        <td>{task.taskBody}</td>
-                                        <td>{task.status}</td>
+                                        <td>
+                                            <button
+                                                className={styles.taskListBtn} onClick={() => handleTaskListClick(task)}>{task.taskName}
+                                            </button>
+                                        </td>
                                     </tr>
-                                );
-                            }
-                            ) : null}
-                        </tbody>
-                    </table>
+                                    );
+                                }) : null}
+                            </p>
+                        </div>
+                        <div className={styles.swimlane}>
+                            <h3> IN PROGRESS </h3>
+                            <p>
+                            {taskList.length > 0 ? taskList.filter((task) => task.status == "IN_PROGRESS").map((task, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>
+                                        <button
+                                            className={styles.taskListBtn} onClick={() => handleTaskListClick(task)}>{task.taskName}
+                                        </button>
+                                        </td>
+                                    </tr>
+                                    );
+                                }
+                                ) : null}
+                            </p>
+                        </div>
+                        <div className={styles.swimlane}>
+                            <h3> COMPLETE </h3>
+                            <p>
+                            {taskList.length > 0 ? taskList.filter((task) => task.status == "COMPLETE").map((task, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>
+                                        <button
+                                            className={styles.taskListBtn} onClick={() => handleTaskListClick(task)}>{task.taskName}
+                                        </button>
+                                        </td>
+                                    </tr>
+                                    );
+                                }
+                                ) : null}
+                            </p>
+                        </div>
+                    </div>
                 </TabPanel>
                 {showPopup && (
                     <ReactModal isOpen={showPopup}>
