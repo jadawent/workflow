@@ -40,6 +40,14 @@ function Dashboard(){
         closePopup();
     }
 
+    const [selectedTab]  = useState(() => {
+        return localStorage.getItem("selectedTab") || 0;
+    });
+
+    const handleSelect = (index, lastIndex, event) => {
+        localStorage.setItem("selectedTab", index);
+    }
+
     return (
         <>
             <header>
@@ -47,7 +55,7 @@ function Dashboard(){
                     <LogoutButton/>
                 </nav>
             </header>
-            <Tabs>
+            <Tabs defaultIndex={selectedTab} onSelect={handleSelect}>
                 <TabList>
                     <Tab>Tasks</Tab>
                     <Tab>Manage Employees</Tab>
