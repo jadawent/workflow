@@ -67,6 +67,7 @@ function SignUpComponent({role, closeModal, windowReload}){
             if(response.ok){
                 if(role === "Manager"){
                     alert("Sign up success!");
+                    localStorage.setItem("ID", result)
                     login();
                     navigate('/dashboard')
                 } else {

@@ -25,6 +25,7 @@ export default function Login() {
             const response = await axios.post('http://localhost:8080/api/login', loginData);
             if (response.status === 200) {
                 login();
+                localStorage.setItem("ID", response.data);
                 navigate('/dashboard')
             } else {
                 const errorData = await response.json()
