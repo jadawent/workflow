@@ -47,7 +47,7 @@ public class Controller {
     private ResponseEntity<?> createUser(@RequestBody User user){
         try{
             userService.createUser(user);
-            return ResponseEntity.ok("User created successfully.");
+            return ResponseEntity.ok(user.getId());
         } catch(IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch(Exception e){
@@ -76,7 +76,8 @@ public class Controller {
 
             if(isAuthenticated) {
                 session.setAttribute("user", loginRequest.getUsername());
-                return ResponseEntity.ok("Login was successful.");
+                long id = userService.getUserID(loginRequest.getUsername());
+                return ResponseEntity.ok(String.valueOf(id));
             } else
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         } catch (Exception e) {

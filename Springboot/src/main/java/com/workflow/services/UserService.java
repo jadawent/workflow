@@ -48,6 +48,11 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
+    public long getUserID(String username){
+        User user = userRepository.findByUsername(username);
+        return user.getId();
+    }
+
     public void createUser(User user){
         user.setUsername(user.getUsername().trim());
         if (existsByUsername(user.getUsername())) {
