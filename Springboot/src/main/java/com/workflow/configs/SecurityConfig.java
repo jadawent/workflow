@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -40,7 +42,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/up").permitAll()
+                        .requestMatchers("/create-user").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/user/*").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.DELETE,"/api/user/*").hasAuthority("MANAGER")
+                        .requestMatchers("/api/task/list").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/api/task").hasAuthority("MANAGER")
+                        .requestMatchers("/api/task/*").hasAuthority("EMPLOYEE")
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))
                 .httpBasic(Customizer.withDefaults())

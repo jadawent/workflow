@@ -1,10 +1,15 @@
 package com.workflow.configs;
 
+import com.workflow.models.Role;
 import com.workflow.models.User;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +24,17 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        List<Role> roles = user.getUserRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role: roles) {
+            String roleName = role.getRoleName().toUpperCase();
+            authorities.add(new SimpleGrantedAuthority(roleName));
+            if (roleName.equals("MANAGER")) {
+                authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
+            }
+        }
+        System.out.println(authorities);
+        return authorities;
     }
 
     @Override

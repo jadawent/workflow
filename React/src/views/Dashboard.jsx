@@ -5,15 +5,18 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import ReactModal from "react-modal";
 import LogoutButton from '../components/LogoutButton'
+import secureLocalStorage from "react-secure-storage";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
     useEffect(() => {
         async function getTasks(){
+            const upwd = secureLocalStorage.getItem("auth");
             const response = await fetch("http://localhost:8080/api/task/list" , {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic "+ upwd
                 },
             });
             const result = await response.text();
