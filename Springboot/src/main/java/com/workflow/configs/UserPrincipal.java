@@ -33,7 +33,6 @@ public class UserPrincipal implements UserDetails {
                 authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
             }
         }
-        System.out.println(authorities);
         return authorities;
     }
 
