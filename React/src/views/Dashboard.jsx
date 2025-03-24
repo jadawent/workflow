@@ -24,6 +24,7 @@ function Dashboard(){
     }, [])
 
     const [showPopup, setShowPopup] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null);
 
     const setShowPopupTrue = () => {
         setShowPopup(true)
@@ -38,6 +39,28 @@ function Dashboard(){
         closePopup();
     }
 
+    const [showTaskDetails, setShowTaskDetails] = useState(false);
+
+    const setShowTaskDetailsTrue = (task) => {
+        setShowTaskDetails(true);
+        setSelectedTask(task);
+    }
+
+    const closeTaskDetails = () => {
+        setShowTaskDetails(false);
+    }
+
+    const handleCloseTask = () => {
+        closeTaskDetails();
+        setSelectedTask(null);
+    }
+
+    const handleUpdateTask = () => {
+        updateTask(task);
+        closeTaskDetails();
+    }
+
+
     return (
         <>
             <header>
@@ -49,21 +72,21 @@ function Dashboard(){
                 <TabList>
                     <Tab>Tasks</Tab>
                 </TabList>
+                <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
                 <TabPanel>
-                    <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
                     <div className={styles.swimlaneContainer}>
                         <div className={styles.swimlane}>
                             <h3> TO DO </h3>
                             <p>
-                            {taskList.length > 0 ? taskList.filter((task) => task.status == "TO_DO").map((task, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>
-                                            <button
-                                                className={styles.taskListBtn} onClick={() => handleTaskListClick(task)}>{task.taskName}
-                                            </button>
-                                        </td>
-                                    </tr>
+                                {taskList.length > 0 ? taskList.filter((task) => task.status == "TO_DO").map((task, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <button
+                                                    className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >{task.taskName}
+                                                </button>
+                                            </td>
+                                        </tr>
                                     );
                                 }) : null}
                             </p>
@@ -76,7 +99,7 @@ function Dashboard(){
                                     <tr key={index}>
                                         <td>
                                         <button
-                                            className={styles.taskListBtn} onClick={() => handleTaskListClick(task)}>{task.taskName}
+                                            className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >{task.taskName}
                                         </button>
                                         </td>
                                     </tr>
@@ -93,7 +116,7 @@ function Dashboard(){
                                     <tr key={index}>
                                         <td>
                                         <button
-                                            className={styles.taskListBtn} onClick={() => handleTaskListClick(task)}>{task.taskName}
+                                            className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >{task.taskName}
                                         </button>
                                         </td>
                                     </tr>
@@ -119,6 +142,21 @@ function Dashboard(){
                         </div>
                         
                     </ReactModal>
+                )}
+                {showTaskDetails && selectedTask && (
+                    <ReactModal isOpen={showTaskDetails}>
+                        <div className={styles.taskDetailsPopup} >
+                            {/*put selected task here*/}
+                            <h2> Task Selected: {selectedTask.taskName}</h2>
+                            <h2> Task Details: {selectedTask.taskBody}</h2>
+                            <h2> Task Status: {selectedTask.status}</h2>
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.btn} onClick={closeTaskDetails}>Cancel</button>
+                                <button className={styles.btn} onClick={handleUpdateTask}>Update</button>
+                            </div>
+                        </div>
+                    </ReactModal>
+
                 )}
             </Tabs>
         </>
@@ -155,6 +193,9 @@ async function createNewTask(){
     console.error(error)
     }
     window.location.reload();
+
+    async function updateTask(task){
+    }
 }
 
 export default Dashboard;
