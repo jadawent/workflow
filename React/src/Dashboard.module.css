@@ -1,16 +1,3 @@
-.main {
-    margin: 10% 0 0 0;
-    display: grid;
-    min-width: 100%;
-    min-height: 100%;
-    text-align: center;
-}
-
-.main h1 {
-    font-size: 3.5em;
-    line-height: 1.1;
-}
-
 .navBar{
     background-color: #252a36;
     display: flex;
@@ -18,36 +5,6 @@
     min-height: 50px;
     min-width: 290px;
     padding: 5px;
-}
-
-.navBar .btn{
-    margin-left: 2%;
-    margin-right: 2%;
-    width: 100px;
-    min-width: 10%;
-}
-
-
-.btn {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    font-weight: 500;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    text-decoration: none;
-    display: grid;
-    place-content: center;
-    padding: 2px;
-}
-
-.btn:hover {
-    border-color: #646cff;
-}
-
-.btn:active{
-    background-color: #575252
 }
 
 .createNewTaskBtn{
@@ -61,7 +18,7 @@
     transition: border-color 0.25s;
     float: right;
     place-content: center;
-    margin: 0 0 0 0;
+    margin-bottom: 20;
     width: 150px;
     min-width: 10%;
 }
@@ -74,6 +31,7 @@
     background-color: #575252
 }
 
+/* do we need this? cant find any use of it */
 .popupOverlay{
     background-color: #708090;
     place-content: center;
@@ -110,12 +68,38 @@
     margin: 0 0 1em 0;
 }
 
-
-
-.employeeList{
-    background-color: #c5cbcf
+.swimlaneContainer {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
 
-.employeeList:hover{
-    background-color: #b3b5b6
+.swimlane {
+  background-color: #A9A9A9;
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.taskListBtn{
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: flex-start;
+  min-width: 150px;
+  min-height: 60px;
+  font-size: 20px;
+
+}
+
+.taskDetailsPopup{
+  background-color: #f0f8ff;
+  border: 1px solid;
+  padding: 2em;
+  display: center;
+  place-content: center;
+  margin: 5em;
 }
