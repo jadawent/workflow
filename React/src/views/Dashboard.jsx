@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import styles from "../Dashboard.module.css"
+import signUpStyles from "../SignUpPage.module.css"
 import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import ReactModal from "react-modal";
 import LogoutButton from '../components/LogoutButton'
+import EmployeeTabComponent from "../components/EmployeeTabComponent.jsx";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -39,6 +41,7 @@ function Dashboard(){
         closePopup();
     }
 
+
     const [showTaskDetails, setShowTaskDetails] = useState(false);
 
     const setShowTaskDetailsTrue = (task) => {
@@ -61,6 +64,14 @@ function Dashboard(){
     }
 
 
+    const [selectedTab]  = useState(() => {
+        return localStorage.getItem("selectedTab") || 0;
+    });
+
+    const handleSelect = (index, lastIndex, event) => {
+        localStorage.setItem("selectedTab", index);
+    }
+
     return (
         <>
             <header>
@@ -68,9 +79,10 @@ function Dashboard(){
                     <LogoutButton/>
                 </nav>
             </header>
-            <Tabs>
+            <Tabs defaultIndex={selectedTab} onSelect={handleSelect}>
                 <TabList>
                     <Tab>Tasks</Tab>
+                    <Tab>Manage Employees</Tab>
                 </TabList>
                 <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
                 <TabPanel>
@@ -143,6 +155,7 @@ function Dashboard(){
                         
                     </ReactModal>
                 )}
+
                 {showTaskDetails && selectedTask && (
                     <ReactModal isOpen={showTaskDetails}>
                         <div className={styles.taskDetailsPopup} >
@@ -158,6 +171,10 @@ function Dashboard(){
                     </ReactModal>
 
                 )}
+                <TabPanel>
+                    <EmployeeTabComponent></EmployeeTabComponent>
+                </TabPanel>
+            
             </Tabs>
         </>
     );

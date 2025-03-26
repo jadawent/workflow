@@ -20,11 +20,21 @@ public class RoleService {
 
     // This will check if "Manager" is in the Role table, if not, it will create it.
     // Returns the role in both cases.
-    public Role saveAsManagerRole(){
+    public Role ensureManagerRole(){
         Role role = findByRoleName("Manager");
         if (role == null){
             role = new Role();
             role.setRoleName("Manager");
+            saveRole(role);
+        }
+        return role;
+    }
+
+    public Role ensureEmployeeRole(){
+        Role role = findByRoleName("Employee");
+        if (role == null){
+            role = new Role();
+            role.setRoleName("Employee");
             saveRole(role);
         }
         return role;

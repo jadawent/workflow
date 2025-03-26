@@ -49,3 +49,73 @@
 .btn:active{
     background-color: #575252
 }
+
+.createNewTaskBtn{
+    height: 2.5em;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    float: right;
+    place-content: center;
+    margin: 0 0 0 0;
+    width: 150px;
+    min-width: 10%;
+}
+
+.createNewTaskBtn:hover {
+    border-color: #646cff;
+}
+
+.createNewTaskBtn:active{
+    background-color: #575252
+}
+
+.popupOverlay{
+    background-color: #708090;
+    place-content: center;
+    border: 1px solid;
+    min-width: 200px;
+    max-width: 500px;
+    padding: 2em;
+    display: grid;
+    place-content: center;
+}
+
+.popupContent {
+    background-color: #f0f8ff;
+    border: 1px solid;
+    padding: 2em;
+    display: center;
+    place-content: center;
+    margin: 5em;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttonContainer .btn {
+    margin-left: 10px;
+}
+
+.largeInput {
+    width: 98%;
+    padding: 10px;
+    height: 2em;
+    margin: 0 0 1em 0;
+}
+
+
+
+.employeeList{
+    background-color: #c5cbcf
+}
+
+.employeeList:hover{
+    background-color: #b3b5b6
+}
