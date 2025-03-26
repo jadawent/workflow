@@ -110,3 +110,12 @@
     margin: 0 0 1em 0;
 }
 
+
+
+.employeeList{
+    background-color: #c5cbcf
+}
+
+.employeeList:hover{
+    background-color: #b3b5b6
+}
