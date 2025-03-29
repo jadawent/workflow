@@ -30,9 +30,6 @@ public class Controller {
 
     @Autowired
     private UserService userService;
-  
-    @Autowired
-    private RoleService roleService;
 
     @PutMapping("/user/{id}")
     public User updateUser(@RequestBody() User user, @PathVariable("id") Long id){
@@ -49,26 +46,21 @@ public class Controller {
     @PostMapping("/create-user")
     private ResponseEntity<?> createUser(@RequestBody User user){
         try{
-            // Trims trailing spaces and
-            // checks if username already exists
-            user.setUsername(user.getUsername().trim());
-            if (userService.existsByUsername(user.getUsername())) {
-                return ResponseEntity.badRequest().body("Username is already taken.");
-            }
-
-            // checks if the 2 passwords match before creating the user.
-            if(!user.getPassword().equals(user.getConfirmPassword())){
-                return ResponseEntity.badRequest().body("Passwords do not match.");
-            }
-
-            // Creates a manager role if not already existing in database
-            Role role = roleService.saveAsManagerRole();
-
-            userService.createUser(user, List.of(role));
-            return ResponseEntity.ok("User created successfully.");
-        } catch (Exception e){
-            System.out.println(e);
+            userService.createUser(user);
+            return ResponseEntity.ok(user.getId());
+        } catch(IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch(Exception e){
             return ResponseEntity.badRequest().body("Could not create user.");
+        }
+    }
+
+    @GetMapping("/user/list")
+    public ResponseEntity<?> listUsers(){
+        try{
+            return ResponseEntity.ok(userService.listUsers());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Could not list users.");
         }
     }
 
@@ -84,7 +76,8 @@ public class Controller {
 
             if(isAuthenticated) {
                 session.setAttribute("user", loginRequest.getUsername());
-                return ResponseEntity.ok("Login was successful.");
+                long id = userService.getUserID(loginRequest.getUsername());
+                return ResponseEntity.ok(String.valueOf(id));
             } else
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         } catch (Exception e) {
