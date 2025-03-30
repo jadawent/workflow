@@ -87,8 +87,10 @@ function Dashboard(){
                     <Tab>Tasks</Tab>
                     <Tab>Manage Employees</Tab>
                 </TabList>
-                <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
                 <TabPanel>
+                    <div className={styles.buttonContainer}>
+                        <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
+                    </div>
                     <div className={styles.swimlaneContainer}>
                         <div className={styles.swimlane}>
                             <h3> TO DO </h3>
@@ -184,6 +186,7 @@ function Dashboard(){
 }
 
 async function createNewTask(){
+    const upwd = secureLocalStorage.getItem("auth");
     const url ="http://localhost:8080/api/task";
     const taskName = document.getElementById("taskName");
     const desc = document.getElementById("taskBody")
@@ -196,7 +199,8 @@ async function createNewTask(){
         const response = await fetch(url , {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Basic "+ upwd
             },
             body: JSON.stringify(data)
         });

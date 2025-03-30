@@ -3,6 +3,8 @@ import styles from "../HomePage.module.css"
 import signUpStyles from "../SignUpPage.module.css"
 import React, {useEffect, useState} from "react";
 import ReactModal from "react-modal";
+import secureLocalStorage from "react-secure-storage";
+
 
 function EmployeeTabComponent(){
 
@@ -10,10 +12,12 @@ function EmployeeTabComponent(){
     const [userList, setUserList] = useState([]);
     useEffect(() => {
         async function getUserList(){
+            const upwd = secureLocalStorage.getItem("auth");
             const response = await fetch("http://localhost:8080/api/user/list", {
                 method: "GET", 
                 headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": "Basic "+ upwd
                 }
             });
             const result = await response.text();
@@ -37,10 +41,12 @@ function EmployeeTabComponent(){
         if(userID == localStorage.getItem("ID")){
             alert("You can't delete yourself!");
         } else {
+            const upwd = secureLocalStorage.getItem("auth");
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic "+ upwd
                 }
             });
             if(response.ok){

@@ -69,7 +69,7 @@
 }
 
 .swimlaneContainer {
-  margin-top: 50px;
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -87,12 +87,11 @@
 .taskListBtn{
   background-color: white;
   color: black;
-  display: flex;
+  display: block;
   justify-content: flex-start;
-  min-width: 150px;
   min-height: 60px;
   font-size: 20px;
-
+  width: 100%;
 }
 
 .taskDetailsPopup{
@@ -102,4 +101,9 @@
   display: center;
   place-content: center;
   margin: 5em;
+}
+
+.buttonContainer {
+    margin-bottom: 5px;
+    text-align: right;
 }
