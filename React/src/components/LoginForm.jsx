@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import styles from "../LoginPage.module.css"
 import { useAuth } from './AuthContext.jsx'
 import axios from 'axios'
+import  secureLocalStorage  from  "react-secure-storage";
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -20,6 +21,8 @@ export default function Login() {
             username,
             password
         }
+        const upwd = btoa(unescape(encodeURIComponent(username + ":" + password)));
+        secureLocalStorage.setItem("auth", upwd)
 
         try {
             const response = await axios.post('http://localhost:8080/api/login', loginData)

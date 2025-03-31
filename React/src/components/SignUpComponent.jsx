@@ -1,6 +1,7 @@
 import styles from "../SignUpPage.module.css"
 import { useAuth } from '../components/AuthContext.jsx'
 import { useNavigate } from "react-router-dom"
+import secureLocalStorage from "react-secure-storage";
 
 function SignUpComponent({role, closeModal, windowReload}){
     const {login} = useAuth();
@@ -42,6 +43,7 @@ function SignUpComponent({role, closeModal, windowReload}){
     }
 
     async function createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login){
+        const upwd = secureLocalStorage.getItem("auth");
         const url = "http://localhost:8080/api/create-user"; 
         // can change to https for secure transfer, but we will need to implement TLS/SSL in springboot too.
         const data = {
@@ -58,10 +60,11 @@ function SignUpComponent({role, closeModal, windowReload}){
             const response = await fetch(url , {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                });
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic "+ upwd
+                },
+                body: JSON.stringify(data)
+            });
             const result = await response.json();
             
             if(response.ok){

@@ -6,16 +6,19 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import ReactModal from "react-modal";
 import LogoutButton from '../components/LogoutButton'
+import secureLocalStorage from "react-secure-storage";
 import EmployeeTabComponent from "../components/EmployeeTabComponent.jsx";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
     useEffect(() => {
         async function getTasks(){
+            const upwd = secureLocalStorage.getItem("auth");
             const response = await fetch("http://localhost:8080/api/task/list" , {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic "+ upwd
                 },
             });
             const result = await response.text();
@@ -87,8 +90,11 @@ function Dashboard(){
                     <Tab>Tasks</Tab>
                     {isManager() ? <Tab>Manage Employees</Tab> : null}
                 </TabList>
-                {isManager() ? <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button> : null }
+
                 <TabPanel>
+                    <div className={styles.buttonContainer}>
+                      {isManager() ? <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button> : null }
+                    </div>
                     <div className={styles.swimlaneContainer}>
                         <div className={styles.swimlane}>
                             <h3> TO DO </h3>
@@ -184,6 +190,7 @@ function Dashboard(){
 }
 
 async function createNewTask(){
+    const upwd = secureLocalStorage.getItem("auth");
     const url ="http://localhost:8080/api/task";
     const taskName = document.getElementById("taskName");
     const desc = document.getElementById("taskBody")
@@ -196,7 +203,8 @@ async function createNewTask(){
         const response = await fetch(url , {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Basic "+ upwd
             },
             body: JSON.stringify(data)
         });
