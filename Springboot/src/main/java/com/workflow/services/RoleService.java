@@ -18,6 +18,7 @@ public class RoleService {
         return roleRepository.findByRoleName(roleName);
     }
 
+
     // This will check if "Manager" is in the Role table, if not, it will create it.
     // Returns the role in both cases.
     public Role ensureManagerRole(){

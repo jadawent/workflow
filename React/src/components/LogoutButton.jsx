@@ -7,10 +7,11 @@ import { useAuth } from './AuthContext.jsx'
 function Logout() {
 
     const {logout} = useAuth();
+    const navigate = useNavigate();
 
     const handleLogout = async (e) => {
         logout();
-        navigate('/login')
+        navigate('/')
     }
 
     return (

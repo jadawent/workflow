@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, {useState} from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import styles from "../LoginPage.module.css"
 import { useAuth } from './AuthContext.jsx'
+import axios from 'axios'
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -22,17 +22,16 @@ export default function Login() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/api/login', loginData);
+            const response = await axios.post('http://localhost:8080/api/login', loginData)
             if (response.status === 200) {
-                login();
-                localStorage.setItem("ID", response.data);
+                login(response.data)
                 navigate('/dashboard')
             } else {
                 const errorData = await response.json()
                 setError(errorData.message || 'Login failed for user. Please retry!')
             }
         } catch(error) {
-                    setError('And error occurred. please retry')
+                    setError('An error occurred. please retry')
        }
     }
 

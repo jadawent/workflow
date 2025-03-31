@@ -7,17 +7,23 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(() => {
-        return localStorage.getItem('isAuthenticated') === 'true'
+        return sessionStorage.getItem('isAuthenticated') === 'true'
     })
 
-    const login = () => {
+    const login = ( loginResponse ) => {
         setIsAuthenticated(true)
-        localStorage.setItem('isAuthenticated', true)
+        sessionStorage.setItem('isAuthenticated', true)
+        sessionStorage.setItem('ID', loginResponse.id);
+        sessionStorage.setItem('ROLE', loginResponse.userRoles)
     }
 
     const logout = () => {
         setIsAuthenticated(false)
-        localStorage.removeItem('isAuthenticated')
+        sessionStorage.clear()
+    }
+
+    const isManager = () => {
+        return sessionStorage.ROLE === "Manager"
     }
 
     return (

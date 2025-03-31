@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.workflow.models.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +45,10 @@ public class Controller {
     }
 
     @PostMapping("/create-user")
-    private ResponseEntity<?> createUser(@RequestBody User user){
+    private ResponseEntity<?> createUser(@RequestBody User user) {
         try{
             userService.createUser(user);
-            return ResponseEntity.ok(user.getId());
+            return ResponseEntity.ok(userService.generateLoginResponse(user.getUsername()));
         } catch(IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch(Exception e){
@@ -70,14 +71,13 @@ public class Controller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginUser loginRequest, HttpSession session) {
+    public ResponseEntity<?> login(@RequestBody LoginUser loginRequest, HttpSession session) {
         try {
             boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 
             if(isAuthenticated) {
                 session.setAttribute("user", loginRequest.getUsername());
-                long id = userService.getUserID(loginRequest.getUsername());
-                return ResponseEntity.ok(String.valueOf(id));
+                return ResponseEntity.ok(userService.generateLoginResponse(loginRequest.getUsername()));
             } else
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         } catch (Exception e) {

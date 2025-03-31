@@ -59,16 +59,15 @@ function SignUpComponent({role, closeModal, windowReload}){
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-            const result = await response.text();
+                    },
+                    body: JSON.stringify(data)
+                });
+            const result = await response.json();
             
             if(response.ok){
                 if(role === "Manager"){
                     alert("Sign up success!");
-                    localStorage.setItem("ID", result)
-                    login();
+                    login(result)
                     navigate('/dashboard')
                 } else {
                     alert("Employee created!");
