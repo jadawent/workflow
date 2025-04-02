@@ -34,11 +34,11 @@ function EmployeeTabComponent(){
     const [showEmployeeInfoPopup, setShowEmployeeInfoPopup] = useState(false);
 
     // SELECTED USER STATE
-    const [selectedUser, setSelectedUser] = useState(null); 
+    const [selectedUser, setSelectedUser] = useState(null);
 
     async function deleteUser(userID){
         const url = `http://localhost:8080/api/user/${userID}`;
-        if(userID == localStorage.getItem("ID")){
+        if(userID == sessionStorage.getItem("ID")){
             alert("You can't delete yourself!");
         } else {
             const upwd = secureLocalStorage.getItem("auth");

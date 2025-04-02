@@ -60,18 +60,22 @@ function SignUpComponent({role, closeModal, windowReload}){
             const response = await fetch(url , {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Basic "+ upwd
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             });
-            const result = await response.text();
+            const result = await response.json();
             
             if(response.ok){
+                // Auth Header
+                if(secureLocalStorage.getItem('auth') == null) {
+                    const upwd = btoa(unescape(encodeURIComponent(user + ":" + pw)));
+                    secureLocalStorage.setItem("auth", upwd)
+                }
+
                 if(role === "Manager"){
                     alert("Sign up success!");
-                    localStorage.setItem("ID", result)
-                    login();
+                    login(result)
                     navigate('/dashboard')
                 } else {
                     alert("Employee created!");

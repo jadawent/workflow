@@ -1,8 +1,6 @@
 package com.workflow.services;
 
-import com.workflow.models.Role;
-import com.workflow.models.Task;
-import com.workflow.models.User;
+import com.workflow.models.*;
 import com.workflow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,6 +51,18 @@ public class UserService {
     public long getUserID(String username){
         User user = userRepository.findByUsername(username);
         return user.getId();
+    }
+    public List<String> getUserRoles(String username) {
+        User user = userRepository.findByUsername(username);
+        List<String> roles = new ArrayList<>();
+        for(Role role : user.getUserRoles()) {
+            roles.add(role.getRoleName());
+        }
+        return roles;
+    }
+
+    public LoginResponse generateLoginResponse(String username) {
+        return new LoginResponse(getUserID(username), getUserRoles(username));
     }
 
     public void createUser(User user){

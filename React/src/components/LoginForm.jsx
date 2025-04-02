@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, {useState} from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import styles from "../LoginPage.module.css"
 import { useAuth } from './AuthContext.jsx'
+import axios from 'axios'
 import  secureLocalStorage  from  "react-secure-storage";
 
 export default function Login() {
@@ -21,21 +21,23 @@ export default function Login() {
             username,
             password
         }
-        const upwd = btoa(unescape(encodeURIComponent(username + ":" + password)));
-        secureLocalStorage.setItem("auth", upwd)
 
         try {
-            const response = await axios.post('http://localhost:8080/api/login', loginData);
+            const response = await axios.post('http://localhost:8080/api/login', loginData)
             if (response.status === 200) {
-                login();
-                localStorage.setItem("ID", response.data);
+                // Auth Header
+                const upwd = btoa(unescape(encodeURIComponent(username + ":" + password)));
+                secureLocalStorage.setItem("auth", upwd)
+
+                login(response.data)
+                alert("Login successful.")
                 navigate('/dashboard')
             } else {
                 const errorData = await response.json()
-                setError(errorData.message || 'Login failed for user. Please retry!')
+                alert(errorData)
             }
         } catch(error) {
-                    setError('And error occurred. please retry')
+                    alert('Please enter a valid username and password.')
        }
     }
 

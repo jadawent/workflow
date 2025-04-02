@@ -66,13 +66,16 @@ function Dashboard(){
         closeTaskDetails();
     }
 
-
     const [selectedTab]  = useState(() => {
-        return localStorage.getItem("selectedTab") || 0;
+        return sessionStorage.getItem("selectedTab") || 0;
     });
 
     const handleSelect = (index, lastIndex, event) => {
-        localStorage.setItem("selectedTab", index);
+        sessionStorage.setItem("selectedTab", index);
+    }
+
+    const isManager = () => {
+        return sessionStorage.ROLE === "Manager"
     }
 
     return (
@@ -85,11 +88,12 @@ function Dashboard(){
             <Tabs defaultIndex={selectedTab} onSelect={handleSelect}>
                 <TabList>
                     <Tab>Tasks</Tab>
-                    <Tab>Manage Employees</Tab>
+                    {isManager() ? <Tab>Manage Employees</Tab> : null}
                 </TabList>
+
                 <TabPanel>
                     <div className={styles.buttonContainer}>
-                        <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button>
+                      {isManager() ? <button align={"right"} className={styles.createNewTaskBtn} onClick={setShowPopupTrue}>Create New Task</button> : null }
                     </div>
                     <div className={styles.swimlaneContainer}>
                         <div className={styles.swimlane}>
