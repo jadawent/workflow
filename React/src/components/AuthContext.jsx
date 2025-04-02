@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
+import secureLocalStorage from "react-secure-storage";
 
 const AuthContext = createContext();
 
@@ -20,10 +21,7 @@ export const AuthProvider = ({children}) => {
     const logout = () => {
         setIsAuthenticated(false)
         sessionStorage.clear()
-    }
-
-    const isManager = () => {
-        return sessionStorage.ROLE === "Manager"
+        secureLocalStorage.clear()
     }
 
     return (

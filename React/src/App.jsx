@@ -16,12 +16,12 @@ function App() {
       <AuthProvider>
           <Router>
               <Routes>
-                  <Route path="/login" element={<Login />} />
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUpPage />} />
                   <Route path="/loginSuccess" element={<ProtectedRoute> <LoginSuccess /> </ProtectedRoute>} />
-                  <Route path="*" element={<ErrorPage />} />
                   <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+                  <Route path="*" element={<ErrorPage />} />
               </Routes>
           </Router>
       </AuthProvider>
