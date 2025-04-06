@@ -30,9 +30,9 @@ public class ShiftNote {
     @NotBlank
     private String body;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_id")
-    private User creatorId;
+    private User creator;
 
     // Empty Constructor (BEAN)
     public ShiftNote() {}
@@ -90,11 +90,11 @@ public class ShiftNote {
         this.body = body;
     }
 
-    public User getCreatorId() {
-        return creatorId;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(User creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }

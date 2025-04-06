@@ -1,6 +1,7 @@
 package com.workflow.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,9 +35,11 @@ public class User {
     @NotBlank(message = "Username is required")
     private String username;
 
+    @JsonIgnore
     @NotBlank
     private String password;
 
+    @JsonIgnore
     @Transient
     private String confirmPassword;
 
@@ -47,10 +50,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> userRoles;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignedTo")
     private List<Task> assignedTasks;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatorId")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
     private List<ShiftNote> createdShiftNotes;
 
     // Empty Constructor (BEAN)

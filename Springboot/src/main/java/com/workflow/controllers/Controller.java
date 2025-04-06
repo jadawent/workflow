@@ -1,10 +1,8 @@
 package com.workflow.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.workflow.models.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.workflow.models.LoginUser;
-import com.workflow.models.Role;
+import com.workflow.dtos.LoginUser;
 import com.workflow.models.User;
-import com.workflow.services.RoleService;
 import com.workflow.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
