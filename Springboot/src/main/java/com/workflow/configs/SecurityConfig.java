@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE,"/api/user/*").hasAuthority("MANAGER")
                         .requestMatchers("/api/user/list").hasAuthority("MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/task").hasAnyAuthority("MANAGER")
+                        .requestMatchers("/api/shift-note/**").permitAll()
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))
                 .httpBasic(Customizer.withDefaults())

@@ -1,9 +1,9 @@
 package com.workflow.services;
 
+import com.workflow.dtos.LoginResponse;
 import com.workflow.models.*;
 import com.workflow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
