@@ -1,0 +1,86 @@
+.createNewShiftNoteBtn{
+    height: 2.5em;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    float: right;
+    place-content: center;
+    margin: 0 0 0 0;
+    width: 150px;
+    min-width: 10%;
+}
+
+.createNewShiftNoteBtn:hover {
+    border-color: #646cff;
+}
+
+.createNewShiftNoteBtn:active{
+    background-color: #575252
+}
+
+.shiftNotesList{
+    background-color: #c5cbcf
+}
+
+.shiftNotesList:hover{
+    background-color: #b3b5b6
+}
+
+
+.btn{
+    height: 2em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin: 2em 0 0 0;
+}
+
+.cancelBtn{
+    background-color: red;
+}
+
+.btn:hover {
+    border-color: #646cff;
+}
+
+.btn:active{
+    background-color: #575252
+}
+
+.shiftNotesDiv{
+    display: grid;
+    place-content: center;
+    border: 1px solid;
+    min-width: 250px;
+    padding: 2em;
+}
+
+
+
+.shiftNotesDiv input{
+    color: black;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 5px;
+    height: 2em;
+    min-width: 30em;
+}
+
+.messageBodyTextArea{
+    background-color: white;
+    resize: none;
+    min-height: 10em;
+    min-width: 30em;
+    color: black;
+}

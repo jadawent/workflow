@@ -8,6 +8,7 @@ import ReactModal from "react-modal";
 import LogoutButton from '../components/LogoutButton'
 import secureLocalStorage from "react-secure-storage";
 import EmployeeTabComponent from "../components/EmployeeTabComponent.jsx";
+import ShiftNotesComponent from "../components/ShiftNotesComponent.jsx";
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -89,6 +90,7 @@ function Dashboard(){
                 <TabList>
                     <Tab>Tasks</Tab>
                     {isManager() ? <Tab>Manage Employees</Tab> : null}
+                    <Tab>Shift Notes</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -182,6 +184,9 @@ function Dashboard(){
                 )}
                 <TabPanel>
                     <EmployeeTabComponent></EmployeeTabComponent>
+                </TabPanel>
+                <TabPanel>
+                    <ShiftNotesComponent></ShiftNotesComponent>
                 </TabPanel>
             
             </Tabs>
