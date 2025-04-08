@@ -60,51 +60,55 @@ function EmployeeTabComponent(){
 
     return(
         <>
-        <button className={styles.createNewTaskBtn} onClick={() => {setShowCreateEmployeesPopup(true)}}>Create Employee</button>
-        <table width={"100%"}>
-            <thead>
-                <tr align={"left"}>
-                    <th>Employees</th>
-                </tr>
-            </thead>
-            <tbody>
-                {userList.length > 0 ? userList.map((user, index) => {
-                    return (
-                        <tr key={index}>
-                            <td className={styles.employeeList} onClick={() => {
-                                setShowEmployeeInfoPopup(true)
-                                setSelectedUser(user);
-                            }}> {user.firstName} {user.lastName} </td>
-                        </tr>
-                    );
-                }
-                ) : null}
-            </tbody>
-        </table>
+        <div className={styles.container}>
+            <div>
+            <button className={styles.createNewTaskBtn} onClick={() => {setShowCreateEmployeesPopup(true)}}>Create Employee</button>
+            </div>
+            <table width={"100%"}>
+                <thead>
+                    <tr align={"left"}>
+                        <th className={styles.employeeHeader}>Employees</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {userList.length > 0 ? userList.map((user, index) => {
+                        return (
+                            <tr key={index}>
+                                <td className={styles.employeeList} onClick={() => {
+                                    setShowEmployeeInfoPopup(true)
+                                    setSelectedUser(user);
+                                }}> {user.firstName} {user.lastName} </td>
+                            </tr>
+                        );
+                    }
+                    ) : null}
+                </tbody>
+            </table>
+        </div>
         {
             showCreateEmployeesPopup && (
-                <ReactModal isOpen={showCreateEmployeesPopup}>
-                    <div className={signUpStyles.signUpDiv}>
+                <ReactModal className={styles.popupOverlay} isOpen={showCreateEmployeesPopup}>
+                    <div className={styles.popupContent}>
                         <SignUpComponent role={"Employee"} closeModal={() =>{setShowCreateEmployeesPopup(false)}} windowReload={() => {window.location.reload()}}/>
-                        <button className={signUpStyles.btn} onClick={() =>{setShowCreateEmployeesPopup(false)}}>Cancel</button>
+                        <button onClick={() =>{setShowCreateEmployeesPopup(false)}} className={signUpStyles.cancelBtn}>Cancel</button>
                     </div>
                 </ReactModal>
             )
         }
         {
             showEmployeeInfoPopup && selectedUser && (
-                <ReactModal isOpen={showEmployeeInfoPopup}>
+                <ReactModal className={styles.popupOverlay} isOpen={showEmployeeInfoPopup}>
                     <div className={signUpStyles.signUpDiv}>
                         <h2>Name: {selectedUser.firstName} {selectedUser.lastName}</h2>
                         <p>Username: {selectedUser.username}</p>
                         <p>Role: {selectedUser.userRoles[0].roleName}</p>
                         <p>Onboarding Date: {selectedUser.createdAt}</p>
                         <p>ID: {selectedUser.id}</p>
-                        <button className={signUpStyles.btn} onClick={() => {
+                        <button className={signUpStyles.submitBtn} onClick={() => {
                             setShowEmployeeInfoPopup(false);
                             setSelectedUser(null);
                         }}>Cancel</button>
-                        <button className={[signUpStyles.btn, signUpStyles.cancelBtn].join(' ')} onClick={() => {
+                        <button className={[signUpStyles.submitBtn, signUpStyles.cancelBtn].join(' ')} onClick={() => {
                             setShowEmployeeInfoPopup(false);
                             setSelectedUser(null);
                             deleteUser(selectedUser.id);

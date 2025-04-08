@@ -7,6 +7,7 @@ function SignUpPage(){
 
     return (
         <>
+        <div className={styles.container}>
             <header className={styles.header}>
                 <Link to="/" className={styles.title}>WorkFlow</Link>
             </header>
@@ -15,6 +16,7 @@ function SignUpPage(){
                     <SignUpComponent role={"Manager"}/>
                </div>
             </main>
+        </div>
         </>
     );
 }

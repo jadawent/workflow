@@ -43,6 +43,7 @@ export default function Login() {
 
     return (
             <>
+            <div className={styles.container}>
                 <header className={styles.header}>
                     <Link to="/" className={styles.title}>WorkFlow</Link>
                 </header>
@@ -57,6 +58,7 @@ export default function Login() {
                         <p className={styles.caption} id="result"></p>
                     </div>
                 </main>
+            </div>
             </>
       );
 }

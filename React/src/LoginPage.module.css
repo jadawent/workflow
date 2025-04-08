@@ -28,6 +28,8 @@
     border: 1px solid;
     width: 250px;
     min-width: 250px;
+    background-color: #ececec;
+    border-radius: 3px;
 }
 
 .username{
@@ -71,3 +73,8 @@
 .btn:active{
     background-color: #575252
 }
+.container {
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+ }
