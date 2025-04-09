@@ -53,7 +53,7 @@ public class Controller {
     }
 
     @GetMapping("/user/list")
-    public ResponseEntity<?> listUsers(){
+    public ResponseEntity<?> listUsers() {
         try{
             return ResponseEntity.ok(userService.listUsers());
         } catch (Exception e){

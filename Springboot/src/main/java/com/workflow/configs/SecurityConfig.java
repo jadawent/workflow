@@ -55,8 +55,6 @@ public class SecurityConfig {
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))
                 .httpBasic(Customizer.withDefaults())
                 .build();
-
-
     }
 
     @Bean
