@@ -1,4 +1,4 @@
-package com.workflow.models;
+package com.workflow.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
