@@ -133,17 +133,14 @@ function ShiftNotesComponent(){
         const upwd = secureLocalStorage.getItem("auth");
         const id = selectedShiftNote.id
         const url =`http://localhost:8080/api/shift-note/delete/${id}`;
-        const data ={
-            "id" : id
-        }
+
         try {
             const response = await fetch(url, {
-                method: "POST",
+                method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Basic "+ upwd
-                },
-                body: JSON.stringify(data)
+                }
             })
             if(response.ok){
                 alert("Shift Note Deleted!");
