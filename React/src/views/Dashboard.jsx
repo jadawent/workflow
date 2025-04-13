@@ -182,9 +182,12 @@ function Dashboard(){
                     </ReactModal>
 
                 )}
+                {isManager() ? 
                 <TabPanel>
                     <EmployeeTabComponent></EmployeeTabComponent>
                 </TabPanel>
+                : null}
+                
                 <TabPanel>
                     <ShiftNotesComponent></ShiftNotesComponent>
                 </TabPanel>

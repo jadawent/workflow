@@ -43,6 +43,10 @@ function ShiftNotesComponent(){
         setShowShiftNoteInfoPopup(false);
     }
 
+    const isManager = () => {
+        return sessionStorage.ROLE === "Manager"
+    }
+    
     return(
         <>
         <button className={styles.createNewShiftNoteBtn} onClick={() => {setShowCreateShiftNotePopup(true)}}>Create Shift Note</button>
@@ -92,7 +96,7 @@ function ShiftNotesComponent(){
                             setShowShiftNoteInfoPopup(false);
                             setSelectedShiftNote(null);
                         }}>Cancel</button>
-                        <button className={styles.btn} onClick={() =>{handleDelete()}}>Delete</button>
+                        {isManager() ? <button className={styles.btn} onClick={() =>{handleDelete()}}>Delete</button> : null}
                     </div>
                 </ReactModal>
             )
