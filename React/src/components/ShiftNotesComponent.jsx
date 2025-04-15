@@ -45,11 +45,15 @@ function ShiftNotesComponent(){
 
     return(
         <>
-        <button className={styles.createNewShiftNoteBtn} onClick={() => {setShowCreateShiftNotePopup(true)}}>Create Shift Note</button>
+        <div className={styles.container}>
+        <div>
+            <button className={styles.createNewShiftNoteBtn} onClick={() => {setShowCreateShiftNotePopup(true)}}>Create Shift Note</button>
+        </div>
+        <div className={styles.shiftNotesContainer}>
         <table width={"100%"}>
             <thead>
                 <tr align={"left"}>
-                    <th>Shift Notes</th>
+                    <th className={styles.shiftNotesContainerHeader}>Shift Notes</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,34 +69,40 @@ function ShiftNotesComponent(){
                 }) : null}
             </tbody>
         </table>
+        </div>
+    </div>
         {
             showCreateShiftNotePopup && (
-                <ReactModal isOpen={showCreateShiftNotePopup}>
-                    <div className={styles.shiftNotesDiv}>
+                <ReactModal className={styles.popupOverlay}isOpen={showCreateShiftNotePopup}>
+                    <div className={styles.createShiftNoteDiv}>
                         <p>Title:</p>
                         <input id="title"></input>
                         <p>Message:</p>
-                        <textarea id="body" className={styles.messageBodyTextArea}></textarea>
-                        <button className={styles.btn} onClick={() => {
-                            handlePost();
-                        }}>Post</button>
-                        <button className={styles.btn} onClick={() =>{setShowCreateShiftNotePopup(false)}}>Cancel</button>
+                        <input id="body"></input>
+                        <div className={styles.buttonContainer}>
+                            <button className={styles.cancelBtn} onClick={() =>{setShowCreateShiftNotePopup(false)}}>Cancel</button>
+                            <button className={styles.submitBtn} onClick={() => {
+                                handlePost();
+                            }}>Post</button>
+                        </div>
                     </div>
                 </ReactModal>
             )
         }
         {
             showShiftNoteInfoPopup && selectedShiftNote && (
-                <ReactModal isOpen={showShiftNoteInfoPopup}>
+                <ReactModal className={styles.popupOverlay}isOpen={showShiftNoteInfoPopup}>
                     <div className={styles.shiftNotesDiv}>
-                        <h2>Title: {selectedShiftNote.title}</h2>
-                        <p>Creator ID: {selectedShiftNote.creator}</p>
-                        <p>Message: {selectedShiftNote.body}</p>
-                        <button className={styles.btn} onClick={() => {
+                        <h2>{selectedShiftNote.title}</h2>
+                        <p>{selectedShiftNote.body}</p>
+                        <p>Posted by Creator ID: {selectedShiftNote.creator}</p>
+                        <div className={styles.buttonContainer}>
+                        <button className={styles.cancelBtn} onClick={() =>{handleDelete()}}>Delete</button>
+                        <button className={styles.submitBtn} onClick={() => {
                             setShowShiftNoteInfoPopup(false);
                             setSelectedShiftNote(null);
-                        }}>Cancel</button>
-                        <button className={styles.btn} onClick={() =>{handleDelete()}}>Delete</button>
+                        }}>Close</button>
+                        </div>
                     </div>
                 </ReactModal>
             )

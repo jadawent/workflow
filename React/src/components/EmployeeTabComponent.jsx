@@ -62,12 +62,13 @@ function EmployeeTabComponent(){
         <>
         <div className={styles.container}>
             <div>
-            <button className={styles.createNewTaskBtn} onClick={() => {setShowCreateEmployeesPopup(true)}}>Create Employee</button>
+                <button className={styles.createNewTaskBtn} onClick={() => {setShowCreateEmployeesPopup(true)}}>Create Employee</button>
             </div>
+            <div className={styles.employeeContainer}>
             <table width={"100%"}>
                 <thead>
                     <tr align={"left"}>
-                        <th className={styles.employeeHeader}>Employees</th>
+                        <th className={styles.employeeContainerHeader}>Employees</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,13 +85,16 @@ function EmployeeTabComponent(){
                     ) : null}
                 </tbody>
             </table>
+            </div>
         </div>
         {
             showCreateEmployeesPopup && (
                 <ReactModal className={styles.popupOverlay} isOpen={showCreateEmployeesPopup}>
                     <div className={styles.popupContent}>
                         <SignUpComponent role={"Employee"} closeModal={() =>{setShowCreateEmployeesPopup(false)}} windowReload={() => {window.location.reload()}}/>
-                        <button onClick={() =>{setShowCreateEmployeesPopup(false)}} className={signUpStyles.cancelBtn}>Cancel</button>
+                        <div className={signUpStyles.buttonContainer}>
+                            <button onClick={() =>{setShowCreateEmployeesPopup(false)}} className={signUpStyles.cancelBtn}>Cancel</button>
+                        </div>
                     </div>
                 </ReactModal>
             )
@@ -107,7 +111,7 @@ function EmployeeTabComponent(){
                         <button className={signUpStyles.submitBtn} onClick={() => {
                             setShowEmployeeInfoPopup(false);
                             setSelectedUser(null);
-                        }}>Cancel</button>
+                        }}>Close</button>
                         <button className={[signUpStyles.submitBtn, signUpStyles.cancelBtn].join(' ')} onClick={() => {
                             setShowEmployeeInfoPopup(false);
                             setSelectedUser(null);

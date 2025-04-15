@@ -5,7 +5,7 @@
     place-content: center;
     min-height: 50px;
     min-width: 290px;
-    padding: 5px;
+    padding: 1px;
 }
 
 .title{
@@ -78,3 +78,19 @@
      display: flex;
      flex-direction: column;
  }
+
+.loginBtn{
+    height: 2em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: #d9ead3;
+    border: 1px solid black;
+    color: black;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin: 2em 0 2em 0;
+}
