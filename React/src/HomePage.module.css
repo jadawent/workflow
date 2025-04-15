@@ -39,7 +39,7 @@
     text-decoration: none;
     display: grid;
     place-content: center;
-    padding: 2px;
+    padding: 10px;
 }
 
 .btn:hover {
@@ -55,52 +55,57 @@
     border-radius: 3px;
     border: 1px solid transparent;
     font-weight: 500;
-    background-color: black;
-    color: white;
+    background-color: #d9ead3;
+    color: black;
+    border: 1px solid;
     cursor: pointer;
     transition: border-color 0.25s;
     float: right;
+    margin-right: 10px;
     place-content: center;
-    margin: 0 0 0 0;
-    width: 150px;
     min-width: 10%;
+    display: flex-end;
 }
 
 .createNewTaskBtn:hover {
-    border-color: #646cff;
+    border-color: #6aa84f;
 }
 
 .createNewTaskBtn:active{
-    background-color: #575252
+    background-color: #93c47d
 }
 
 .popupOverlay{
-    background-color: #708090;
+    background-color: transparent;
     place-content: center;
-    border: 1px solid;
-    min-width: 200px;
-    max-width: 500px;
+    border: none;
     padding: 2em;
-    display: grid;
+    display: flex;
     place-content: center;
+    z-index: 1000;
 }
 
 .popupContent {
-    background-color: #f0f8ff;
+    background-color: white;
     border: 1px solid;
+    border-radius: 5px;
     padding: 2em;
     display: center;
     place-content: center;
-    margin: 5em;
+    max-height: 400px;
+    min-width: 400px;
+    overflow-y: auto;
 }
 
 .buttonContainer{
     display: flex;
     justify-content: flex-end;
+    margin:20px;
+    padding: 20px;
 }
 
 .buttonContainer .btn {
-    margin-left: 10px;
+    margin: 10px;
 }
 
 .largeInput {
@@ -110,12 +115,60 @@
     margin: 0 0 1em 0;
 }
 
-
-
 .employeeList{
-    background-color: #c5cbcf
+    border-radius: 3px;
+    border: 1px solid;
+    height: 2em;
+    font-size: 1em;
+    background-color: #d9ead3;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-left: 5px;
 }
 
 .employeeList:hover{
-    background-color: #b3b5b6
+    border-color: #93c47d;
+}
+
+.employeeHeader{
+    padding-bottom: 8px;
+    text-align: left;
+    font-family: Verdana, sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-left: 10px;
+}
+/*whole screen container*/
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.cancelBtn {
+  background-color: #f99a93;
+  color: black;
+  border: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  min-height: 15px;
+  font-size: 20px;
+  justify-content: center;
+  border-radius: 10px;
+  margin-top: 5px;
+
+}
+.submitBtn {
+  background-color: #d9ead3;
+  color: black;
+  border: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  min-height: 25px;
+  font-size: 20px;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px;
 }

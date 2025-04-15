@@ -24,13 +24,21 @@
 
 .signUpDiv{
     display: grid;
+    justify-content: center;
     place-content: center;
     border: 1px solid;
+    border-radius: 3px;
     min-width: 250px;
+    max-width: 500px;
     padding: 2em;
+    background-color: #ececec;
 }
 
-
+.center{
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
 
 .signUpDiv input{
     color: black;
@@ -39,6 +47,7 @@
     border-radius: 5px;
     height: 2em;
     min-width: 20em;
+    display: center;
 }
 
 .caption{
@@ -61,8 +70,34 @@
     margin: 2em 0 0 0;
 }
 
+.submitBtn{
+    height: 2em;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-weight: 500;
+    background-color: #d9ead3;
+    color: black;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin: 2em 0 0 0;
+}
+
 .cancelBtn{
-    background-color: red;
+    height: 2em;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-weight: 500;
+    background-color: #f99a93;
+    color: black;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin: 2em 0 0 0;
 }
 
 .btn:hover {
@@ -71,4 +106,9 @@
 
 .btn:active{
     background-color: #575252
+}
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }

@@ -67,7 +67,7 @@ function Dashboard(){
         closeTaskDetails();
     }
 
-    const [selectedTab]  = useState(() => {
+    const [selectedTab, setSelectedTab]  = useState(() => {
         return sessionStorage.getItem("selectedTab") || 0;
     });
 
@@ -81,6 +81,7 @@ function Dashboard(){
 
     return (
         <>
+        <div className={styles.container}>
             <header>
                 <nav className={styles.navBar}>
                     <LogoutButton/>
@@ -88,7 +89,7 @@ function Dashboard(){
             </header>
             <Tabs defaultIndex={selectedTab} onSelect={handleSelect}>
                 <TabList>
-                    <Tab>Tasks</Tab>
+                    <Tab> Tasks </Tab>
                     {isManager() ? <Tab>Manage Employees</Tab> : null}
                     <Tab>Shift Notes</Tab>
                 </TabList>
@@ -99,7 +100,7 @@ function Dashboard(){
                     </div>
                     <div className={styles.swimlaneContainer}>
                         <div className={styles.swimlane}>
-                            <h3> TO DO </h3>
+                            <h3 className={styles.swimlaneHeader}> TO DO </h3>
                             <p>
                                 {taskList.length > 0 ? taskList.filter((task) => task.status == "TO_DO").map((task, index) => {
                                     return (
@@ -115,7 +116,7 @@ function Dashboard(){
                             </p>
                         </div>
                         <div className={styles.swimlane}>
-                            <h3> IN PROGRESS </h3>
+                            <h3 className={styles.swimlaneHeader}> IN PROGRESS </h3>
                             <p>
                             {taskList.length > 0 ? taskList.filter((task) => task.status == "IN_PROGRESS").map((task, index) => {
                                 return (
@@ -132,7 +133,7 @@ function Dashboard(){
                             </p>
                         </div>
                         <div className={styles.swimlane}>
-                            <h3> COMPLETE </h3>
+                            <h3 className={styles.swimlaneHeader}> COMPLETE </h3>
                             <p>
                             {taskList.length > 0 ? taskList.filter((task) => task.status == "COMPLETE").map((task, index) => {
                                 return (
@@ -151,16 +152,16 @@ function Dashboard(){
                     </div>
                 </TabPanel>
                 {showPopup && (
-                    <ReactModal isOpen={showPopup}>
+                    <ReactModal className={styles.popupOverlay} isOpen={showPopup}>
                         <div className={styles.popupContent}> 
-                            <h2> Create New Task </h2>
+                            <h2 className={styles.font}> Create New Task </h2>
                             <p className ={styles.taskName}>Task Name</p>
                             <input id="taskName" className={styles.largeInput}></input>
                             <p>Task Description</p>
                             <input id="taskBody" className={styles.largeInput}></input>
                             <div className={styles.buttonContainer}>
-                                <button className={styles.btn} onClick={closePopup}>Cancel</button>
-                                <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+                                <button className={styles.cancelBtn} onClick={closePopup}>Cancel</button>
+                                <button className={styles.submitBtn} onClick={handleSubmit}>Submit</button>
                             </div>
                         </div>
                         
@@ -168,15 +169,15 @@ function Dashboard(){
                 )}
 
                 {showTaskDetails && selectedTask && (
-                    <ReactModal isOpen={showTaskDetails}>
+                    <ReactModal className={styles.popupOverlay}isOpen={showTaskDetails}>
                         <div className={styles.taskDetailsPopup} >
                             {/*put selected task here*/}
                             <h2> Task Selected: {selectedTask.taskName}</h2>
                             <h2> Task Details: {selectedTask.taskBody}</h2>
                             <h2> Task Status: {selectedTask.status}</h2>
                             <div className={styles.buttonContainer}>
-                                <button className={styles.btn} onClick={closeTaskDetails}>Cancel</button>
-                                <button className={styles.btn} onClick={handleUpdateTask}>Update</button>
+                                <button className={styles.cancelBtn} onClick={closeTaskDetails}>Cancel</button>
+                                <button className={styles.submitBtn} onClick={handleUpdateTask}>Update</button>
                             </div>
                         </div>
                     </ReactModal>
@@ -190,6 +191,7 @@ function Dashboard(){
                 </TabPanel>
             
             </Tabs>
+        </div>
         </>
     );
 }
