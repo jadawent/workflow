@@ -82,16 +82,17 @@ function Dashboard(){
     return (
         <>
         <div className={styles.container}>
-            <header>
-                <nav className={styles.navBar}>
+            <header className={styles.header}>
+                <h1 className={styles.title}>Workflow</h1>
+                <div className={styles.logoutWrapper}>
                     <LogoutButton/>
-                </nav>
+                </div>
             </header>
             <Tabs defaultIndex={selectedTab} onSelect={handleSelect}>
                 <TabList>
                     <Tab> Tasks </Tab>
-                    {isManager() ? <Tab>Manage Employees</Tab> : null}
                     <Tab>Shift Notes</Tab>
+                    {isManager() ? <Tab>Manage Employees</Tab> : null}
                 </TabList>
 
                 <TabPanel>
@@ -184,10 +185,10 @@ function Dashboard(){
 
                 )}
                 <TabPanel>
-                    <EmployeeTabComponent></EmployeeTabComponent>
+                    <ShiftNotesComponent></ShiftNotesComponent>
                 </TabPanel>
                 <TabPanel>
-                    <ShiftNotesComponent></ShiftNotesComponent>
+                    <EmployeeTabComponent></EmployeeTabComponent>
                 </TabPanel>
             
             </Tabs>

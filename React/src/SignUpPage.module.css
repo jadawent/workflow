@@ -100,6 +100,11 @@
     margin: 2em 0 0 0;
 }
 
+.buttonContainer {
+    margin-bottom: 5px;
+    text-align: right;
+}
+
 .btn:hover {
     border-color: #646cff;
 }
