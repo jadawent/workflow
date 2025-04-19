@@ -12,8 +12,6 @@ export default function TaskDetails(props) {
     const [taskStatus, setTaskStatus] = useState(props.selectedTask.status);
     const [taskAssignee, setTaskAssignee] = useState(props.selectedTask.assignedTo);
     const [userList, setUserList] = useState([]);
-    const [userId] = useState(sessionStorage.getItem("ID"));
-    const [userRole] = useState(sessionStorage.getItem("ROLE"));
 
     const closeTaskDetails = () => {
         props.setShowTaskDetails(false);
