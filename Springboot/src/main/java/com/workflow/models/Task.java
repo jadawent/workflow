@@ -52,7 +52,7 @@ public class Task {
     private Status status;
 
     // Relationship Attributes
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "assigned_id")
     private User assignedTo;
 
