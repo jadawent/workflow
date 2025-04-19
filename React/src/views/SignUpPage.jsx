@@ -3,8 +3,6 @@ import styles from "../SignUpPage.module.css"
 import SignUpComponent from "../components/SignUpComponent.jsx";
 
 function SignUpPage(){
-
-
     return (
         <>
         <div className={styles.container}>
@@ -20,10 +18,5 @@ function SignUpPage(){
         </>
     );
 }
-
-
-
-
-
 
 export default SignUpPage;
