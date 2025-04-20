@@ -1,21 +1,21 @@
 .createNewShiftNoteBtn{
     height: 2.5em;
     border-radius: 3px;
-    border: 1px solid transparent;
+    border: 1px solid black;
     font-weight: 500;
-    background-color: black;
-    color: white;
+    background-color: #c1b8d9;
+    color: black;
+    margin-right: 10px;
     cursor: pointer;
     transition: border-color 0.25s;
     float: right;
     place-content: center;
-    margin: 0 0 0 0;
     width: 150px;
     min-width: 10%;
 }
 
 .createNewShiftNoteBtn:hover {
-    border-color: #646cff;
+    border-color: #d9d2e9;
 }
 
 .createNewShiftNoteBtn:active{
@@ -23,13 +23,20 @@
 }
 
 .shiftNotesList{
-    background-color: #c5cbcf
+    background-color: #c1b8d9;
+    border: 1px solid black;
+    border-radius: 3px;
+    height: 2em;
+    font-size: 1em;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 5px;
+    margin-top: 5px;
 }
 
 .shiftNotesList:hover{
-    background-color: #b3b5b6
+    border-color: #d9d2e9;
 }
-
 
 .btn{
     height: 2em;
@@ -59,16 +66,28 @@
 }
 
 .shiftNotesDiv{
-    display: grid;
-    place-content: center;
-    border: 1px solid;
-    min-width: 250px;
+    background-color: #c1b8d9;
+    border: 1px solid black;
+    border-radius: 15px;
     padding: 2em;
+    display: center;
+    place-content: center;
+    margin: 5em;
+    width: 75%;
 }
 
+.createShiftNoteDiv{
+    background-color: #c1b8d9;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 2em;
+    display: grid;
+    place-content: center;
+    margin: 5em;
+    height: fit-content;
+}
 
-
-.shiftNotesDiv input{
+.createShiftNoteDiv input{
     color: black;
     background-color: white;
     border: 1px solid;
@@ -83,4 +102,84 @@
     min-height: 10em;
     min-width: 30em;
     color: black;
+}
+
+.shiftNotesContainer{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #ececec;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.shiftNotesContainerHeader{
+  border-bottom: 1px solid black;
+  padding-bottom: 8px;
+  text-align: start;
+  font-family: Verdana, sans-serif;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.popupOverlay{
+    background-color: transparent;
+    border: none;
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.cancelBtn {
+  background-color: #f99a93;
+  color: black;
+  border: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  min-height: 25px;
+  font-size: 20px;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.cancelBtn:hover{
+    border: 1px solid white;
+}
+
+.submitBtn {
+  background-color: #d9ead3;
+  color: black;
+  border: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  min-height: 25px;
+  font-size: 20px;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.submitBtn:hover{
+    border: 1px solid white;
+}
+
+.buttonContainer {
+    margin-bottom: 5px;
+    text-align: right;
+}
+
+/*whole screen container*/
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }

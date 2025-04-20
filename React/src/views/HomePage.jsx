@@ -4,6 +4,7 @@ import styles from "../HomePage.module.css"
 function HomePage(){
     return (
         <>
+        <div className={styles.container}>
         <header>
             <nav className={styles.navBar}>
                 <Link to="/signup" className={`${styles.btn} ${styles.signUp}`}>Sign Up</Link>
@@ -18,6 +19,7 @@ function HomePage(){
                 </div>
             </div>
         </main>
+        </div>
         </>
     );
 }
