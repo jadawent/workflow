@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/task/list").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/user/*").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.DELETE,"/api/user/*").hasAuthority("MANAGER")
+                        .requestMatchers("/api/user/get-user/*").permitAll()
                         .requestMatchers("/api/user/list").hasAuthority("MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/task").hasAnyAuthority("MANAGER")
                         .requestMatchers("/api/shift-note/**").permitAll()

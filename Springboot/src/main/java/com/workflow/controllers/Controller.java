@@ -33,6 +33,15 @@ public class Controller {
         return userService.updateUser(user);
     }
 
+    @GetMapping("/user/get-user/{id}")
+    public ResponseEntity<?> getUser(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(userService.getUserByID(id));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Could not retrieve user.");
+        }
+    }
+
     @GetMapping("/up")
     public ResponseEntity<?> up(){
         Map<String, String> response = new HashMap<>();

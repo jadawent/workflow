@@ -52,6 +52,11 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         return user.getId();
     }
+
+    public User getUserByID(long id){
+        return userRepository.getById(id);
+    }
+
     public List<String> getUserRoles(String username) {
         User user = userRepository.findByUsername(username);
         List<String> roles = new ArrayList<>();

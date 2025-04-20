@@ -44,7 +44,28 @@ function ShiftNotesComponent(){
     }
 
     const isManager = () => {
-        return sessionStorage.ROLE === "Manager"
+        return sessionStorage.ROLE === "Manager";
+    }
+
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    async function setSelectedUserFunction(shiftNote){
+        const upwd = secureLocalStorage.getItem("auth");
+        const id = shiftNote.creator;
+        const url = `http://localhost:8080/api/user/get-user/${id}`;
+        try{
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic "+ upwd,
+                }
+            });
+            const result = await response.json();
+            console.log(result);
+        } catch (error){
+            console.error(error);
+        }
     }
     
     return(
@@ -63,6 +84,7 @@ function ShiftNotesComponent(){
                             <td className={styles.shiftNotesList} onClick={() => {
                                 setShowShiftNoteInfoPopup(true);
                                 setSelectedShiftNote(shiftNote);
+                                setSelectedUserFunction(shiftNote);
                             }}>{shiftNote.title}</td>
                         </tr>
                     )
@@ -91,6 +113,7 @@ function ShiftNotesComponent(){
                     <div className={styles.shiftNotesDiv}>
                         <h2>Title: {selectedShiftNote.title}</h2>
                         <p>Creator ID: {selectedShiftNote.creator}</p>
+                        {/* <p>Creator: {selectedUser.firstName} {selectedUser.lastName}</p> */}
                         <p>Message: {selectedShiftNote.body}</p>
                         <button className={styles.btn} onClick={() => {
                             setShowShiftNoteInfoPopup(false);
