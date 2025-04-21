@@ -27,6 +27,9 @@ function ShiftNotesComponent(){
     // CREATE SHIFT NOTE POPUP
     const [showCreateShiftNotePopup, setShowCreateShiftNotePopup] = useState(false);
 
+    // UPDATE SHIFT NOTE POPUP
+    const [showUpdateShiftNotePopup, setShowUpdateShiftNotePopup] = useState(false);
+
     // SHIFT NOTE INFO POPUP
     const [showShiftNoteInfoPopup, setShowShiftNoteInfoPopup] = useState(false);
 
@@ -38,6 +41,11 @@ function ShiftNotesComponent(){
         setShowCreateShiftNotePopup(false);
     }
 
+    const handleEdit = async () => {
+        editShiftNote();
+        setShowCreateShiftNotePopup(false);
+    }
+
     const handleDelete = async () => {
         deleteShiftNote();
         setShowShiftNoteInfoPopup(false);
@@ -45,6 +53,10 @@ function ShiftNotesComponent(){
 
     const isManager = () => {
         return sessionStorage.ROLE === "Manager";
+    }
+
+    const isCreator = () => {
+        return selectedShiftNote.creator == sessionStorage.getItem("ID");
     }
 
     const [selectedUser, setSelectedUser] = useState(null);
@@ -66,6 +78,13 @@ function ShiftNotesComponent(){
         } catch (error){
             console.error(error);
         }
+    }
+
+    const editNote = (selectedShiftNote) => {
+        setShowUpdateShiftNotePopup(true);
+        setShowShiftNoteInfoPopup(false);
+        setSelectedShiftNote(selectedShiftNote);
+        setSelectedUserFunction(selectedShiftNote);
     }
     
     return(
@@ -127,6 +146,25 @@ function ShiftNotesComponent(){
                             setSelectedShiftNote(null);
                         }}>Cancel</button>
                         {isManager() ? <button className={styles.btn} onClick={() =>{handleDelete()}}>Delete</button> : null}
+                        {isCreator() ? <button className={styles.btn} onClick={() =>{editNote(selectedShiftNote)}}>Edit</button> : null}
+                    </div>
+                </ReactModal>
+            )
+        }
+        {
+            showUpdateShiftNotePopup && (
+                <ReactModal className={styles.popupOverlay}isOpen={showUpdateShiftNotePopup}>
+                    <div className={styles.createShiftNoteDiv}>
+                        <p>Title:</p>
+                        <input id="title" defaultValue={selectedShiftNote.title}></input>
+                        <p>Message:</p>
+                        <input id="body" defaultValue={selectedShiftNote.body}></input>
+                        <div className={styles.buttonContainer}>
+                            <button className={styles.cancelBtn} onClick={() =>{setShowUpdateShiftNotePopup(false)}}>Cancel</button>
+                            <button className={styles.submitBtn} onClick={() => {
+                                handleEdit();
+                            }}>Post</button>
+                        </div>
                     </div>
                 </ReactModal>
             )
@@ -155,6 +193,34 @@ function ShiftNotesComponent(){
             })
             if(response.ok){
                 alert("Shift Note Posted!");
+                window.location.reload();
+            }
+        } catch (error){
+            console.log(error);
+            alert("Something went wrong.");
+        }
+    };
+
+    async function editShiftNote(){
+        const upwd = secureLocalStorage.getItem("auth");
+        const url =`http://localhost:8080/api/shift-note/${selectedShiftNote.id}`;
+        const noteTitle = document.getElementById("title");
+        const noteBody = document.getElementById("body");
+        const data = {
+            "title" : noteTitle.value,
+            "body" : noteBody.value
+        };
+        try{
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Basic "+ upwd
+                },
+                body: JSON.stringify(data)
+            })
+            if(response.ok){
+                alert("Shift Note Updated!");
                 window.location.reload();
             }
         } catch (error){
