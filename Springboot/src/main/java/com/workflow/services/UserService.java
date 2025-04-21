@@ -1,6 +1,7 @@
 package com.workflow.services;
 
 import com.workflow.dtos.LoginResponse;
+import com.workflow.dtos.UserResponse;
 import com.workflow.models.*;
 import com.workflow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,9 @@ public class UserService {
         return user.getId();
     }
 
-    public User getUserByID(long id){
-        return userRepository.getById(id);
+    public UserResponse getUserByID(long id){
+        User user = userRepository.getById(id);
+        return new UserResponse(user.getFirstName(), user.getLastName(), user.getId());
     }
 
     public List<String> getUserRoles(String username) {

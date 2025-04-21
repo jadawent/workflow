@@ -62,7 +62,7 @@ function ShiftNotesComponent(){
                 }
             });
             const result = await response.json();
-            console.log(result);
+            setSelectedUser(result);
         } catch (error){
             console.error(error);
         }
@@ -120,8 +120,7 @@ function ShiftNotesComponent(){
                 <ReactModal className={styles.popupOverlay}isOpen={showShiftNoteInfoPopup}>
                     <div className={styles.shiftNotesDiv}>
                         <h2>Title: {selectedShiftNote.title}</h2>
-                        <p>Creator ID: {selectedShiftNote.creator}</p>
-                        {/* <p>Creator: {selectedUser.firstName} {selectedUser.lastName}</p> */}
+                        <p>Creator: {selectedUser?.firstName} {selectedUser?.lastName}</p>
                         <p>Message: {selectedShiftNote.body}</p>
                         <button className={styles.btn} onClick={() => {
                             setShowShiftNoteInfoPopup(false);
