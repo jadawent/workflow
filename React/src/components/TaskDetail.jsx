@@ -125,8 +125,8 @@ export default function TaskDetails(props) {
                     })}
                 </select>
                 <div className={styles.buttonContainer}>
-                    <button className={styles.btn} onClick={closeTaskDetails}>Cancel</button>
-                    <button className={styles.btn} onClick={handleUpdateTask}>Update</button>
+                    <button className={styles.cancelBtn} onClick={closeTaskDetails}>Cancel</button>
+                    <button className={styles.submitBtn} onClick={handleUpdateTask}>Update</button>
                 </div>
             </div>
         </ReactModal>

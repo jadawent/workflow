@@ -75,10 +75,11 @@ function ShiftNotesComponent(){
             showCreateShiftNotePopup && (
                 <ReactModal className={styles.popupOverlay}isOpen={showCreateShiftNotePopup}>
                     <div className={styles.createShiftNoteDiv}>
+                        <h2 className={styles.font}> Create New Shift Note </h2>
                         <p>Title:</p>
-                        <input id="title"></input>
+                        <input id="title" className={styles.largeInput}></input>
                         <p>Message:</p>
-                        <input id="body"></input>
+                        <input id="body" className={styles.largeInput}></input>
                         <div className={styles.buttonContainer}>
                             <button className={styles.cancelBtn} onClick={() =>{setShowCreateShiftNotePopup(false)}}>Cancel</button>
                             <button className={styles.submitBtn} onClick={() => {
