@@ -173,12 +173,16 @@ function Dashboard(){
                     <TaskDetail isOpen={showTaskDetails} selectedTask={selectedTask} setShowTaskDetails={setShowTaskDetails}/>
 
                 )}
+                
                 <TabPanel>
                     <ShiftNotesComponent></ShiftNotesComponent>
                 </TabPanel>
+               
+                {isManager() ? 
                 <TabPanel>
                     <EmployeeTabComponent></EmployeeTabComponent>
                 </TabPanel>
+                 : null}
             
             </Tabs>
         </div>
