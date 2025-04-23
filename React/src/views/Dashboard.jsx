@@ -9,6 +9,7 @@ import LogoutButton from '../components/LogoutButton'
 import secureLocalStorage from "react-secure-storage";
 import EmployeeTabComponent from "../components/EmployeeTabComponent.jsx";
 import ShiftNotesComponent from "../components/ShiftNotesComponent.jsx";
+import TaskDetail from "../components/TaskDetail.jsx"
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -44,7 +45,6 @@ function Dashboard(){
         createNewTask();
         closePopup();
     }
-
 
     const [showTaskDetails, setShowTaskDetails] = useState(false);
 
@@ -170,18 +170,7 @@ function Dashboard(){
                 )}
 
                 {showTaskDetails && selectedTask && (
-                    <ReactModal className={styles.popupOverlay}isOpen={showTaskDetails}>
-                        <div className={styles.taskDetailsPopup} >
-                            {/*put selected task here*/}
-                            <h2> Task Selected: {selectedTask.taskName}</h2>
-                            <h2> Task Details: {selectedTask.taskBody}</h2>
-                            <h2> Task Status: {selectedTask.status}</h2>
-                            <div className={styles.buttonContainer}>
-                                <button className={styles.cancelBtn} onClick={closeTaskDetails}>Cancel</button>
-                                <button className={styles.submitBtn} onClick={handleUpdateTask}>Update</button>
-                            </div>
-                        </div>
-                    </ReactModal>
+                    <TaskDetail isOpen={showTaskDetails} selectedTask={selectedTask} setShowTaskDetails={setShowTaskDetails}/>
 
                 )}
                 
