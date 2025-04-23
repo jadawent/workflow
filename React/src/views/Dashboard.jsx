@@ -184,15 +184,16 @@ function Dashboard(){
                     </ReactModal>
 
                 )}
-                {isManager() ? 
+                
                 <TabPanel>
                     <ShiftNotesComponent></ShiftNotesComponent>
                 </TabPanel>
-                : null}
-                
+               
+                {isManager() ? 
                 <TabPanel>
                     <EmployeeTabComponent></EmployeeTabComponent>
                 </TabPanel>
+                 : null}
             
             </Tabs>
         </div>
