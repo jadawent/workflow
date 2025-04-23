@@ -10,6 +10,8 @@ import secureLocalStorage from "react-secure-storage";
 import EmployeeTabComponent from "../components/EmployeeTabComponent.jsx";
 import ShiftNotesComponent from "../components/ShiftNotesComponent.jsx";
 import TaskDetail from "../components/TaskDetail.jsx"
+import PasswordReset from "../services/PasswordReset.jsx";
+import { Link } from "react-router-dom"
 
 function Dashboard(){
     const [taskList, setTaskList] = useState([]);
@@ -86,6 +88,7 @@ function Dashboard(){
                 <h1 className={styles.title}>Workflow</h1>
                 <div className={styles.logoutWrapper}>
                     <LogoutButton/>
+                        <Link to="/PasswordReset" className={`${styles.passwordResetBtn} ${styles.login}`}>Password Reset</Link>
                 </div>
             </header>
             <Tabs defaultIndex={selectedTab} onSelect={handleSelect}>
