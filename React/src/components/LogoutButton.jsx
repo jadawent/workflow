@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from "../LogoutButton.module.css"
-import { useAuth } from './AuthContext.jsx'
+import { useAuth } from '../services/AuthContext.jsx'
 
 function Logout() {
 

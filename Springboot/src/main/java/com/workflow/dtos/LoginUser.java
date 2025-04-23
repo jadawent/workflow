@@ -1,6 +1,7 @@
 package com.workflow.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class LoginUser {
 
@@ -11,6 +12,11 @@ public class LoginUser {
     private String password;
 
     public LoginUser() {}
+
+    public LoginUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;

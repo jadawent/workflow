@@ -1,5 +1,5 @@
 import styles from "../SignUpPage.module.css"
-import { useAuth } from '../components/AuthContext.jsx'
+import { useAuth } from '../services/AuthContext.jsx'
 import { useNavigate } from "react-router-dom"
 import secureLocalStorage from "react-secure-storage";
 
