@@ -8,8 +8,7 @@ function SignUpComponent({initial, closeModal, windowReload}){
     const {login} = useAuth();
     const navigate = useNavigate();
 
-    const [role, setRole] = useState("Employee"); // Default role is "Employee"
-
+    const [role, setRole] = useState("Manager");
     const handleRoleChange = (event) => {
         setRole(event.target.value);
     };
@@ -126,12 +125,12 @@ function SignUpComponent({initial, closeModal, windowReload}){
             <>
                 <p>Role:</p>
                 <label>
-                <input type="radio" value="Employee" checked={role === "Employee"} onChange={handleRoleChange}/>
-                Employee
-                </label>
-                <label>
                 <input type="radio" value="Manager" checked={role === "Manager"} onChange={handleRoleChange}/>
                 Manager
+                </label>
+                <label>
+                <input type="radio" value="Employee" checked={role === "Employee"} onChange={handleRoleChange}/>
+                Employee
                 </label>
             </>
             : null}
