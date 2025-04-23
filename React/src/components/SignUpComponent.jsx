@@ -107,7 +107,7 @@ function SignUpComponent({role, closeModal, windowReload}){
             <input type="password" id="password"></input>
             <p>Confirm Password*</p>
             <input type="password" id="confirmPassword"></input>
-            <button className={styles.btn} onClick={signUp}>Sign Up</button>
+            <button className={styles.submitBtn} onClick={signUp}>Sign Up</button>
         </>   
     )
 }

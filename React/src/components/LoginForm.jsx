@@ -47,6 +47,7 @@ export default function Login() {
 
     return (
             <>
+            <div className={styles.container}>
                 <header className={styles.header}>
                     <Link to="/" className={styles.title}>WorkFlow</Link>
                 </header>
@@ -57,10 +58,11 @@ export default function Login() {
                         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                         <p>Password</p>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <button className={styles.btn} onClick={handleLogin}>Login</button>
+                        <button className={styles.loginBtn} onClick={handleLogin}>Login</button>
                         <p className={styles.caption} id="result"></p>
                     </div>
                 </main>
+            </div>
             </>
       );
 }
