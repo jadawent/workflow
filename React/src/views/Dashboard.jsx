@@ -108,7 +108,14 @@ function Dashboard(){
                                         <tr key={index}>
                                             <td>
                                                 <button
-                                                    className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >{task.taskName}
+                                                    className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >
+                                                    <p>
+                                                      {task.taskName} -
+                                                      {task.assignedTo && task.assignedTo.firstName
+                                                        ? task.assignedTo.firstName
+                                                        : 'No assignee'}
+                                                    </p>
+
                                                 </button>
                                             </td>
                                         </tr>
@@ -124,7 +131,14 @@ function Dashboard(){
                                     <tr key={index}>
                                         <td>
                                         <button
-                                            className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >{task.taskName}
+                                            className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >
+                                            <p>
+                                              {task.taskName} -
+                                              {task.assignedTo && task.assignedTo.firstName
+                                                ? task.assignedTo.firstName
+                                                : 'No assignee'}
+                                            </p>
+
                                         </button>
                                         </td>
                                     </tr>
@@ -141,7 +155,15 @@ function Dashboard(){
                                     <tr key={index}>
                                         <td>
                                         <button
-                                            className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >{task.taskName}
+                                            className={styles.taskListBtn} onClick={() => setShowTaskDetailsTrue(task)} >
+                                                <p>
+                                                  {task.taskName} -
+                                                  {task.assignedTo && task.assignedTo.firstName
+                                                    ? task.assignedTo.firstName
+                                                    : 'No assignee'}
+                                                </p>
+
+
                                         </button>
                                         </td>
                                     </tr>
@@ -156,9 +178,9 @@ function Dashboard(){
                     <ReactModal className={styles.popupOverlay} isOpen={showPopup}>
                         <div className={styles.popupContent}> 
                             <h2 className={styles.font}> Create New Task </h2>
-                            <p className ={styles.taskName}>Task Name</p>
+                            <p className ={styles.taskName}>Task Name:</p>
                             <input id="taskName" className={styles.largeInput}></input>
-                            <p>Task Description</p>
+                            <p>Task Description:</p>
                             <input id="taskBody" className={styles.largeInput}></input>
                             <div className={styles.buttonContainer}>
                                 <button className={styles.cancelBtn} onClick={closePopup}>Cancel</button>

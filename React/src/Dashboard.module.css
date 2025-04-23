@@ -20,7 +20,7 @@
 .createNewTaskBtn{
     height: 2.5em;
     border-radius: 3px;
-    border: 1px solid;
+    border: 1px solid black;
     font-weight: 500;
     background-color: #9ab8d4;
     color: black;
@@ -46,7 +46,7 @@
     place-content: center;
     border: none;
     padding: 2em;
-    display: center;
+    display: flex;
     place-content: center;
 }
 
@@ -58,6 +58,8 @@
     display: center;
     place-content: center;
     margin: 5em;
+    min-width: 40%;
+    height: fit-content;
 }
 
 .buttonContainer{
@@ -70,6 +72,10 @@
 }
 
 .largeInput {
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
     width: 98%;
     padding: 10px;
     height: 2em;
@@ -116,10 +122,13 @@
   border: 1px solid black;
   border-radius: 15px;
   padding: 2em;
-  display: center;
+  justify-content: center;
   place-content: center;
-  margin: 5em;
-  width: 75%;
+  width: 50%;
+  max-width: 600px;
+  height: auto;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .buttonContainer {
@@ -194,5 +203,5 @@ body {
 }
 .logoutWrapper {
   position: absolute;
-  right: 1em;                   /* push logout to the right edge */
+  right: 1em;
 }
