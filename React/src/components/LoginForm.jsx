@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import styles from "../LoginPage.module.css"
-import { useAuth } from './AuthContext.jsx'
+import { useAuth } from '../services/AuthContext.jsx'
 import axios from 'axios'
-import  secureLocalStorage  from  "react-secure-storage";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -25,19 +25,23 @@ export default function Login() {
         try {
             const response = await axios.post('http://localhost:8080/api/login', loginData)
             if (response.status === 200) {
-                // Auth Header
                 const upwd = btoa(unescape(encodeURIComponent(username + ":" + password)));
                 secureLocalStorage.setItem("auth", upwd)
-
                 login(response.data)
-                alert("Login successful.")
-                navigate('/dashboard')
+
+                if(response.data.confirmation == "Reset ADMIN password") {
+                    navigate('/passwordReset')
+                } else {
+                    alert("Login successful.")
+                    navigate('/dashboard')
+                }
             } else {
                 const errorData = await response.json()
                 alert(errorData)
             }
         } catch(error) {
-                    alert('Please enter a valid username and password.')
+            console.log(error)
+            alert('Please enter a valid username and password.')
        }
     }
 
@@ -54,7 +58,7 @@ export default function Login() {
                         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                         <p>Password</p>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                            <button className={styles.loginBtn} onClick={handleLogin}>Login</button>
+                        <button className={styles.loginBtn} onClick={handleLogin}>Login</button>
                         <p className={styles.caption} id="result"></p>
                     </div>
                 </main>

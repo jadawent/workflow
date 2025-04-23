@@ -4,9 +4,9 @@ import HomePage from "./views/HomePage"
 import SignUpPage from "./views/SignUpPage"
 import ErrorPage from "./views/ErrorPage"
 import Login from "./components/LoginForm"
-import LoginSuccess from "./components/LoginSuccess"
-import { AuthProvider } from './components/AuthContext'
-import ProtectedRoute from './components/ProtectedRoute'
+import PasswordReset from "./services/PasswordReset"
+import { AuthProvider } from './services/AuthContext'
+import ProtectedRoute from './services/ProtectedRoute'
 import Dashboard from './views/Dashboard'
 
 
@@ -19,7 +19,7 @@ function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUpPage />} />
-                  <Route path="/loginSuccess" element={<ProtectedRoute> <LoginSuccess /> </ProtectedRoute>} />
+                  <Route path="/passwordReset" element={<ProtectedRoute> <PasswordReset /> </ProtectedRoute>} />
                   <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
                   <Route path="*" element={<ErrorPage />} />
               </Routes>

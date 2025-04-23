@@ -4,12 +4,14 @@ import java.util.List;
 
 public class LoginResponse {
 
-    private long id;
+    private Long id;
     private List<String> userRoles;
+    private String confirmation;
 
-    public LoginResponse(long id, List<String> userRoles) {
+    public LoginResponse(Long id, List<String> userRoles, String confirmation) {
         this.id = id;
         this.userRoles = userRoles;
+        this.confirmation = confirmation;
     }
 
     public List<String> getUserRoles() {
@@ -20,11 +22,19 @@ public class LoginResponse {
         this.userRoles = userRoles;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getConfirmation() {
+        return confirmation;
+    }
+
+    public void setConfirmation(String confirmation) {
+        this.confirmation = confirmation;
     }
 }

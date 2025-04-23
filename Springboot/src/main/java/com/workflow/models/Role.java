@@ -39,6 +39,8 @@ public class Role {
     // Empty Constructor (BEAN)
     public Role() {}
 
+
+
     // Set date on creation and update
     @PrePersist
     protected void onCreate() {

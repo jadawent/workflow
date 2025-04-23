@@ -1,6 +1,7 @@
 package com.workflow.services;
 
 import com.workflow.dtos.LoginResponse;
+import com.workflow.dtos.LoginUser;
 import com.workflow.dtos.UserResponse;
 import com.workflow.models.*;
 import com.workflow.repositories.UserRepository;
@@ -27,6 +28,13 @@ public class UserService {
 
     public User updateUser(User user) {
         return userRepository.save(user);
+    }
+
+    public void resetPassword(LoginUser resetRequest) {
+        User user = userRepository.findByUsername(resetRequest.getUsername());
+
+        user.setPassword(passwordEncoder.encode(resetRequest.getPassword()));
+        updateUser(user);
     }
 
     public void deleteUser(Long id){
@@ -68,8 +76,8 @@ public class UserService {
         return roles;
     }
 
-    public LoginResponse generateLoginResponse(String username) {
-        return new LoginResponse(getUserID(username), getUserRoles(username));
+    public LoginResponse generateLoginResponse(String username, String confirmation) {
+        return new LoginResponse(getUserID(username), getUserRoles(username), confirmation);
     }
 
     public void createUser(User user){

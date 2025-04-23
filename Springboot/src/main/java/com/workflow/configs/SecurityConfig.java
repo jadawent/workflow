@@ -37,7 +37,7 @@ public class SecurityConfig {
     // Meaning if we ever want to deploy this, we need to add/change the trusted origin
     // to the new origin (ie: "http://workflow.com").
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
@@ -51,14 +51,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/user/get-user/**").hasAuthority("EMPLOYEE")
                         .requestMatchers("/api/user/list").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.POST, "/api/task").hasAnyAuthority("MANAGER")
+                        .requestMatchers(HttpMethod.PUT,"/api/user/reset-password").hasAnyAuthority("EMPLOYEE")
                         .requestMatchers("/api/shift-note/**").permitAll()
                         .requestMatchers("/api/task/*").permitAll()
                 )
                 .logout((logout) -> logout.logoutSuccessUrl("/api/logoutSuccess"))
                 .httpBasic(Customizer.withDefaults())
                 .build();
-
-
     }
 
     @Bean

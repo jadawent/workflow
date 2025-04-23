@@ -3,6 +3,8 @@ package com.workflow.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.workflow.dtos.LoginResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +30,15 @@ public class Controller {
     @Autowired
     private UserService userService;
 
-    @PutMapping("/user/{id}")
-    public User updateUser(@RequestBody() User user, @PathVariable("id") Long id){
-        return userService.updateUser(user);
+    @PutMapping("/user/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody() LoginUser resetRequest) {
+        try {
+            userService.resetPassword(resetRequest);
+            return ResponseEntity.ok(userService.generateLoginResponse(resetRequest.getUsername(), "Password Reset Successful"));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new LoginResponse(null, null, e.getMessage()));
+        }
     }
 
     @GetMapping("/user/get-user/{id}")
@@ -53,7 +61,7 @@ public class Controller {
     private ResponseEntity<?> createUser(@RequestBody User user) {
         try{
             userService.createUser(user);
-            return ResponseEntity.ok(userService.generateLoginResponse(user.getUsername()));
+            return ResponseEntity.ok(userService.generateLoginResponse(user.getUsername(), "Success"));
         } catch(IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch(Exception e){
@@ -62,7 +70,7 @@ public class Controller {
     }
 
     @GetMapping("/user/list")
-    public ResponseEntity<?> listUsers(){
+    public ResponseEntity<?> listUsers() {
         try{
             return ResponseEntity.ok(userService.listUsers());
         } catch (Exception e){
@@ -82,7 +90,11 @@ public class Controller {
 
             if(isAuthenticated) {
                 session.setAttribute("user", loginRequest.getUsername());
-                return ResponseEntity.ok(userService.generateLoginResponse(loginRequest.getUsername()));
+                if(loginRequest.getUsername().equals("ADMIN") &&
+                        loginRequest.getPassword().equals("password")) {
+                    return ResponseEntity.ok(userService.generateLoginResponse(loginRequest.getUsername(), "Reset ADMIN password"));
+                }
+                return ResponseEntity.ok(userService.generateLoginResponse(loginRequest.getUsername(), "Success"));
             } else
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         } catch (Exception e) {
