@@ -13,7 +13,7 @@ function SignUpPage(){
             </header>
             <main className={styles.main}>
                 <div className={styles.signUpDiv}>
-                    <SignUpComponent role={"Manager"}/>
+                    <SignUpComponent initial={true}/>
                </div>
             </main>
         </div>

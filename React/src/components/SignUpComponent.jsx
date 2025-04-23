@@ -1,11 +1,19 @@
 import styles from "../SignUpPage.module.css"
 import { useAuth } from '../services/AuthContext.jsx'
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import secureLocalStorage from "react-secure-storage";
 
-function SignUpComponent({role, closeModal, windowReload}){
+function SignUpComponent({initial, closeModal, windowReload}){
     const {login} = useAuth();
     const navigate = useNavigate();
+
+    const [role, setRole] = useState("Employee"); // Default role is "Employee"
+
+    const handleRoleChange = (event) => {
+        setRole(event.target.value);
+    };
+
     function signUp(){
         const firstName = document.getElementById("firstName").value;
         const lastName = document.getElementById("lastName").value;
@@ -16,7 +24,7 @@ function SignUpComponent({role, closeModal, windowReload}){
         
         if(allValuesFilled(firstName, lastName, user, pw, confirmPw)){
             if (doPasswordsMatch(pw, confirmPw) == true){
-                createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login);
+                createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login, role);
              } else {
                  alert("Passwords do not match. Try again.");
              }
@@ -42,7 +50,11 @@ function SignUpComponent({role, closeModal, windowReload}){
         return true;
     }
 
-    async function createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login){
+    const isInitial = () => {
+        return initial === true;
+    }
+
+    async function createUser(firstName, lastName, user, pw, confirmPw, displayResult, navigate, login, role){
         const upwd = secureLocalStorage.getItem("auth");
         const url = "http://localhost:8080/api/create-user"; 
         // can change to https for secure transfer, but we will need to implement TLS/SSL in springboot too.
@@ -56,17 +68,19 @@ function SignUpComponent({role, closeModal, windowReload}){
                 roleName: role
             }]
         }
+        let response;
         try{
-            const response = await fetch(url , {
+            response = await fetch(url , {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             });
-            const result = await response.json();
+            
             
             if(response.ok){
+                const result = await response.json();
                 // Auth Header
                 if(secureLocalStorage.getItem('auth') == null) {
                     const upwd = btoa(unescape(encodeURIComponent(user + ":" + pw)));
@@ -74,7 +88,7 @@ function SignUpComponent({role, closeModal, windowReload}){
                 }
 
                 if(role === "Manager"){
-                    alert("Sign up success!");
+                    alert("Manager created!");
                     login(result)
                     navigate('/dashboard')
                 } else {
@@ -88,7 +102,8 @@ function SignUpComponent({role, closeModal, windowReload}){
                 }
             }
             else {
-                alert(result);
+                const errorMessage = await response.text();
+                alert(errorMessage);
             }
             }catch (error) {
                 console.error(error);
@@ -107,6 +122,21 @@ function SignUpComponent({role, closeModal, windowReload}){
             <input type="password" id="password"></input>
             <p>Confirm Password*</p>
             <input type="password" id="confirmPassword"></input>
+            {!isInitial() ? 
+            <>
+                <p>Role:</p>
+                <label>
+                <input type="radio" value="Employee" checked={role === "Employee"} onChange={handleRoleChange}/>
+                Employee
+                </label>
+                <label>
+                <input type="radio" value="Manager" checked={role === "Manager"} onChange={handleRoleChange}/>
+                Manager
+                </label>
+            </>
+            : null}
+                
+
             <button className={styles.submitBtn} onClick={signUp}>Sign Up</button>
         </>   
     )
