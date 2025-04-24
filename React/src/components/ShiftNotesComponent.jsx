@@ -142,12 +142,12 @@ function ShiftNotesComponent(){
                         <h2>Title: {selectedShiftNote.title}</h2>
                         <p>Creator: {selectedUser?.firstName} {selectedUser?.lastName}</p>
                         <p>Message: {selectedShiftNote.body}</p>
-                        <button className={styles.btn} onClick={() => {
+                        <button className={styles.closeBtn} onClick={() => {
                             setShowShiftNoteInfoPopup(false);
                             setSelectedShiftNote(null);
-                        }}>Cancel</button>
-                        {isManager() ? <button className={styles.btn} onClick={() =>{handleDelete()}}>Delete</button> : null}
-                        {isCreator() ? <button className={styles.btn} onClick={() =>{editNote(selectedShiftNote)}}>Edit</button> : null}
+                        }}>Close</button>
+                        {isManager() ? <button className={styles.cancelBtn} onClick={() =>{handleDelete()}}>Delete</button> : null}
+                        {isCreator() ? <button className={styles.submitBtn} onClick={() =>{editNote(selectedShiftNote)}}>Edit</button> : null}
                     </div>
                 </ReactModal>
             )

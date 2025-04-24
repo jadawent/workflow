@@ -136,6 +136,20 @@
     height: 100vh;
 }
 
+.closeBtn{
+  background-color: #ececec;
+  color: black;
+  border: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  min-height: 25px;
+  font-size: 20px;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
 .cancelBtn {
   background-color: #f99a93;
   color: black;
@@ -193,7 +207,6 @@
     margin: 0 0 1em 0;
 }
 
-/*whole screen container*/
 .container {
     min-height: 100vh;
     display: flex;

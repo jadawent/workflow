@@ -140,7 +140,7 @@
     font-weight: 500;
     padding-left: 10px;
 }
-/*whole screen container*/
+
 .container {
     min-height: 100vh;
     display: flex;

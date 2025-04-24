@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import styles from "../SignUpPage.module.css"
+import styles from "../PasswordReset.module.css"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from '../services/AuthContext.jsx'
 import secureLocalStorage from "react-secure-storage";
@@ -74,14 +74,15 @@ function PasswordReset() {
     return (
         <>
             <main className={styles.main}>
-                <div className={styles.loginDiv}>
-                    <p className={styles.caption}>Login</p>
+                <div className={styles.signUpDiv}>
+                    <p className={styles.caption}>Reset Your Password!</p>
                     <p className={styles.username}>Username</p>
-                    <input type="text" value={user} onChange={(e) => setUsername(e.target.value)} />
+                    <input type="text" className={styles.input} value={user} onChange={(e) => setUsername(e.target.value)} />
                     <p>Password</p>
-                    <input type="password" value={pass} onChange={(e) => setPassword(e.target.value)} />
-                    <input type="password" value={passwordMatch} onChange={(e) => setPasswordMatch(e.target.value)} />
-                    <button className={styles.btn} onClick={resetPassword}>Reset Password</button>
+                    <input type="password" className={styles.input} value={pass} onChange={(e) => setPassword(e.target.value)} />
+                    <p>Re-type Password</p>
+                    <input type="password" className={styles.input} value={passwordMatch} onChange={(e) => setPasswordMatch(e.target.value)} />
+                    <button className={styles.btn} onClick={resetPassword}>Reset</button>
                     <p className={styles.caption} id="result"></p>
                 </div>
             </main>

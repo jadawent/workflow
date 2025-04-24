@@ -204,4 +204,34 @@ body {
 .logoutWrapper {
   position: absolute;
   right: 1em;
+  display: flex;
+  padding: 2px;
+}
+
+.passwordResetBtn{
+    font-family: Arial;
+    height: 2em;
+    border-radius: 8px;
+    border: 2px solid black;
+    font-weight: 500;
+    font-size: 1em;
+    background-color: #ececec;
+    color: black;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: grid;
+    place-content: center;
+    margin-top: 25px;
+    float: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.passwordResetBtn:hover {
+    border: 2px solid #acdbff;
+}
+
+.passwordResetBtn:active{
+    background-color: #575252
 }
