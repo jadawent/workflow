@@ -68,7 +68,7 @@ function EmployeeTabComponent(){
             <table width={"100%"}>
                 <thead>
                     <tr align={"left"}>
-                        <th className={styles.employeeContainerHeader}>Employees</th>
+                        <th className={styles.employeeContainerHeader}>Employees (click employee for details)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +91,7 @@ function EmployeeTabComponent(){
             showCreateEmployeesPopup && (
                 <ReactModal className={styles.popupOverlay} isOpen={showCreateEmployeesPopup}>
                     <div className={styles.popupContent}>
-                        <SignUpComponent role={"Employee"} closeModal={() =>{setShowCreateEmployeesPopup(false)}} windowReload={() => {window.location.reload()}}/>
+                        <SignUpComponent closeModal={() =>{setShowCreateEmployeesPopup(false)}} windowReload={() => {window.location.reload()}}/>
                         <div className={signUpStyles.buttonContainer}>
                             <button onClick={() =>{setShowCreateEmployeesPopup(false)}} className={signUpStyles.cancelBtn}>Cancel</button>
                         </div>

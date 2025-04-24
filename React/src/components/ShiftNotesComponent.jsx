@@ -97,7 +97,7 @@ function ShiftNotesComponent(){
         <table width={"100%"}>
             <thead>
                 <tr align={"left"}>
-                    <th className={styles.shiftNotesContainerHeader}>Shift Notes</th>
+                    <th className={styles.shiftNotesContainerHeader}>Shift Notes (click note for details)</th>
                 </tr>
             </thead>
             <tbody>
